@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Tracker
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: 10651848
+Implementation-Vendor-Id: com.tracker
+Build-Jdk: 1.8.0_172
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/Tracker
+Created-By: Maven Integration for Eclipse
+
