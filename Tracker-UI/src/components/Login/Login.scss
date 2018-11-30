@@ -1,0 +1,39 @@
+@import '../../../common/variables.scss';
+
+.login {
+  position: fixed;
+  top: 20%;
+  left: 40%;
+  width: 20%;
+  background: $smoke;
+  padding: 15px;
+  z-index: 3;
+  text-align: center;
+
+  &_input {
+    padding: 3px 5px;
+    border: 1px solid $light-grey;
+    border-radius: 3px;
+    width: 100%;
+    display: block;
+    font-size: $font15;
+    margin-bottom: 15px;
+  }
+
+  &_submit {
+    color: $white;
+    font-size: $font15;
+    background: $green;
+    border: 1px solid $green;
+    border-radius: 3px;
+  }
+
+  &_error {
+    display: block;
+    margin-top: 10px;
+    color: $red;
+    width: 100%;
+    text-align: left;
+    font-size: ceil($font15 - 2);
+  }
+}
