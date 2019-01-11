@@ -2,11 +2,15 @@ package com.tracker.service.supply;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.tracker.model.supply.SubmittedBy;
 import com.tracker.repository.supply.SubmittedByRepo;
-
+@Service
+@Transactional
 public class SubmittedByServiceImpl implements SubmittedByService{
 @Autowired
 SubmittedByRepo submittedByRepo;

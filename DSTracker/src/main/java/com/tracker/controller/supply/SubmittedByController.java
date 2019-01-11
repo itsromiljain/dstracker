@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tracker.model.projectTracker.YrOfExp;
 import com.tracker.model.supply.PremiumRate;
 import com.tracker.model.supply.SubmittedBy;
 import com.tracker.service.supply.SubmittedByService;
@@ -27,16 +28,17 @@ public class SubmittedByController {
 		return SB;
 	}
 	
-	@GetMapping("/getAllSubmittedBy")
-	public ResponseEntity<List<SubmittedBy>> getAllSubmittedBy() {
 
-		List<SubmittedBy> SubmittedBy = new LinkedList<SubmittedBy>();
-		try {
-			SubmittedBy = submittedByService.getAllSubmittedBy();
-			return ResponseEntity.ok().body(SubmittedBy);
-		} catch (ResourceNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
+@GetMapping("/getAllSubmittedBy")
+public ResponseEntity<List<SubmittedBy>> getAllSubmittedBy() {
 
+	List<SubmittedBy> SubmittedBy = new LinkedList<SubmittedBy>();
+	try {
+		SubmittedBy = submittedByService.getAllSubmittedBy();
+		return ResponseEntity.ok().body(SubmittedBy);
+	} catch (ResourceNotFoundException e) {
+		return ResponseEntity.notFound().build();
 	}
+
+}
 }
