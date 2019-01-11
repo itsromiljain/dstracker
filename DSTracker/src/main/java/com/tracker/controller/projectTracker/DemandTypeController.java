@@ -19,7 +19,7 @@ import com.tracker.service.projectTracker.DemandTypeService;
 public class DemandTypeController {
 	
 	@Autowired
-	private DemandTypeService demandTypeService ;
+	 DemandTypeService demandTypeService ;
 	
 @PostMapping("/addDemandType")
  public DemandType addDemandType(@RequestBody DemandType demandtype)
