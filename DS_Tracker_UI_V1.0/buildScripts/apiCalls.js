@@ -158,7 +158,7 @@ const getAppleL2Manager = () => {
 const getLocation = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllLocation/')
+      axios.get('http://192.168.43.167:7020/getAllLocation')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -178,7 +178,7 @@ const getLocation = () => {
 const getDemandType = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllDemandType/')
+      axios.get('http://192.168.43.167:7020/getAllDemandType')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -198,7 +198,7 @@ const getDemandType = () => {
 const getLead = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllLead/')
+      axios.get('http://192.168.43.167:7020/getAllLead')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -218,7 +218,7 @@ const getLead = () => {
 const getPriority = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllPriority/')
+      axios.get('http://192.168.43.167:7020/getAllPriority')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -238,7 +238,27 @@ const getPriority = () => {
 const getDemandStatus = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllDemandStatus/')
+      axios.get('http://192.168.43.167:7020/getAllDemandStatus')
+      .then((response) => {
+        console.log(response.data)
+        return resolve(response)
+      })
+      .catch((error) => {
+        console.log(error);
+        return reject(error);
+      })
+    });
+  }
+  catch(error) {
+   
+    console.log(error);
+  }
+};
+
+const getSupplyStatus = () => {
+  try {
+    return new Promise((resolve, reject) =>{
+      axios.get('http://192.168.43.167:7020/getAllSupplyStatus')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -258,7 +278,27 @@ const getDemandStatus = () => {
 const getYrOfExp = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://192.168.43.167:7020/getAllyrOfExp/')
+      axios.get('http://192.168.43.167:7020/getAllyrOfExp')
+      .then((response) => {
+        console.log(response.data)
+        return resolve(response)
+      })
+      .catch((error) => {
+        console.log(error);
+        return reject(error);
+      })
+    });
+  }
+  catch(error) {
+   
+    console.log(error);
+  }
+};
+
+const getSubmittedBy = () => {
+  try {
+    return new Promise((resolve, reject) =>{
+      axios.get('http://192.168.43.167:7020/getAllSubmittedBy')
       .then((response) => {
         console.log(response.data)
         return resolve(response)

@@ -3,7 +3,7 @@ import Table from 'csv-react-table';
 import axios from 'axios';
 import moment from 'moment';
 import './Supply_Track.scss';
-import Addnew from '../Addnew/AddnewSupply';
+import AddnewSupply from '../Addnew/AddnewSupply';
 import Alert from '../Alert/Alert';
 import GenericHelpers from '../../../Helpers/Generic';
 import MUIDataTable from 'mui-datatables';
@@ -166,7 +166,7 @@ class Supply_tracker extends Component {
           <div>
             <div className="addnew">
               <button type="button" className="addnew_close" onClick={() => this.addnew(false)}>x</button>
-              <Addnew projectId={this.state.projectId} onsuccess={this.closeForm} />
+              <AddnewSupply projectId={this.state.projectId} onsuccess={this.closeForm} />
             </div>
             <div className="overlay" />
           </div>

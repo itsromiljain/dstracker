@@ -375,7 +375,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
                             this.state.location.map((val, i) => (
-                              <option key={i} value={val.applel2mngr_id}>{val.applel2mngr_name}</option>
+                              <option key={i} value={val.loc_id}>{val.location}</option>
                              
                             ))
               // location.map((val, index) => (

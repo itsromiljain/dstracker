@@ -93,41 +93,55 @@ app.get('/api/getAppleL2Manager', async function(req, res){
 
 //Location
 app.get('/api/getLocation', async function(req, res){
-  const response = await apiCalls.getLocation();
+  const response = await apiCalls.getAllLocation();
   res.send(response.data);
   res.end();
 })
 
 //Demand Type
 app.get('/api/getDemandType', async function(req, res){
-  const response = await apiCalls.getDemandType();
+  const response = await apiCalls.getAllDemandType();
   res.send(response.data);
   res.end();
 })
 
 //Lead
 app.get('/api/getLead', async function(req, res){
-  const response = await apiCalls.getLead();
+  const response = await apiCalls.getAllLead();
   res.send(response.data);
   res.end();
 })
 
 //Priority
 app.get('/api/getPriority', async function(req, res){
-  const response = await apiCalls.getPriority();
+  const response = await apiCalls.getAllPriority();
   res.send(response.data);
   res.end();
 })
 
 //Demand Status
 app.get('/api/getDemandStatus', async function(req, res){
-  const response = await apiCalls.getDemandStatus();
+  const response = await apiCalls.getAllDemandStatus();
+  res.send(response.data);
+  res.end();
+})
+
+//Supply Status
+app.get('/api/getSupplyStatus', async function(req, res){
+  const response = await apiCalls.getAllSupplyStatus();
   res.send(response.data);
   res.end();
 })
 
 //Year of experience
 app.get('/api/getYrOfExp', async function(req, res){
+  const response = await apiCalls.getYrOfExp();
+  res.send(response.data);
+  res.end();
+})
+
+//Submitted By in Supply
+app.get('/api/getSubmittedBy', async function(req, res){
   const response = await apiCalls.getYrOfExp();
   res.send(response.data);
   res.end();

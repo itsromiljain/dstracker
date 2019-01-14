@@ -7,22 +7,22 @@ import Alert from '../Alert/Alert';
 import GenericHelpers from '../../../Helpers/Generic';
 
 
-const location = ['Austin', 'Sunnyvale', 'Bangalore','Hyderabad'];
+//const location = ['Austin', 'Sunnyvale', 'Bangalore','Hyderabad'];
 const onoffshore = ['OnShore', 'OffShore'];
 const intext = ['Internal', 'External'];
-const statusvalues = ['Available',
-  'Candidate Withdraw',
-  'Future Prospect',
-  'Interview in process',
-  'On Hold',
-  'Joined',
-  'Proactive Hiring',
-  'Rejected',
-  'Selected',
-  'Submitted'];
+// const statusvalues = ['Available',
+//   'Candidate Withdraw',
+//   'Future Prospect',
+//   'Interview in process',
+//   'On Hold',
+//   'Joined',
+//   'Proactive Hiring',
+//   'Rejected',
+//   'Selected',
+//   'Submitted'];
 const recruitername = ['Priya', 'Teja'];
-const submittedby = ['Priya', 'Teja'];
-const yrofexp = ['0-2years', '2-5 Years', '5-10 Years', '10+ Years'];
+//const submittedby = ['Priya', 'Teja'];
+//const yrofexp = ['0-2years', '2-5 Years', '5-10 Years', '10+ Years'];
 
 class AddnewSupply extends Component {
   constructor() {
@@ -36,10 +36,10 @@ class AddnewSupply extends Component {
       demandid: '',
       premiumrate: '',
       recruitername: '',
-      submittedby: '',
-      yrofexp: '',
-      status: '',
-      location: '',
+      submittedby: [],
+      yrofexp: [],
+      status: [],
+      location: [],
       intext: '',
       onoffshore: '',
       appleinterviewdate: moment(),
@@ -232,8 +232,8 @@ class AddnewSupply extends Component {
           <label>Submitted By</label>
           <select onChange={(e) => this.setForm(e, 'submittedby')} value={this.state.submittedby} >
             {
-              submittedby.map((val, index) => (
-                <option key={index} value={val}>{val}</option>
+              this.state.submittedby.map((val, index) => (
+                <option key={index} value={val.submittedById}>{val.submittedBy}</option>
               ))
             }
           </select>
@@ -242,29 +242,47 @@ class AddnewSupply extends Component {
           <label>Year of Experience</label>
           <select onChange={(e) => this.setForm(e, 'yrofexp')} value={this.state.yrofexp} >
             {
+              this.state.yrofexp.map((val, i) => (
+                <option key={i} value={val.id}>{val.yrOfExp}</option>
+              ))
+            }
+          {/* <select onChange={(e) => this.setForm(e, 'yrofexp')} value={this.state.yrofexp} >
+            {
               yrofexp.map((val, index) => (
                 <option key={index} value={val}>{val}</option>
               ))
-            }
+            } */}
           </select>
         </div>
         <div className="addnew_form-field half-field">
           <label>Status</label>
           <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
             {
+              this.state.status.map((val, i) => (
+                <option key={i} value={val.supplyStatusId}>{val.supplyStatus}</option>
+              ))
+            }
+           {/* <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
+            {
               statusvalues.map((val, index) => (
                 <option key={index} value={val}>{val}</option>
               ))
-            }
+            } */}
           </select>
         </div>
         <div className="addnew_form-field half-field">
           <label>Location</label>
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
-              location.map((val, index) => (
-                <option key={index} value={val}>{val}</option>
-              ))
+                            this.state.location.map((val, i) => (
+                              <option key={i} value={val.loc_id}>{val.location}</option>
+                             
+                            ))
+          // <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
+          //   {
+          //     location.map((val, index) => (
+          //       <option key={index} value={val}>{val}</option>
+          //     ))
             }
           </select>
         </div>
