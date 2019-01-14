@@ -1,0 +1,37 @@
+@import '../../../common/variables.scss';
+
+.alertbox {
+  position: fixed;
+  width: 30%;
+  top: 25%;
+  left: 35%;
+  background: $white;
+  padding: 15px;
+  z-index: 3;
+
+  h3 {
+    margin: 0 0 15px 0;
+    padding: 0 0 15px 0;
+    border-bottom: 1px solid $light-grey;
+  }
+
+  span {
+    display: block;
+    text-align: left;
+    font-size: $font15;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $light-grey;
+  }
+
+  button {
+    float: right;
+    width: 100px;
+    padding: 5px 15px;
+    background: $green;
+    border: $green;
+    color: $white;
+    font-size: $font15;
+    cursor: pointer;
+  }
+}

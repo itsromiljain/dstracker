@@ -1,0 +1,10 @@
+.ltilogo{
+   height: 50px;
+   background: transparent;
+}
+.gapping{
+    flex:1;
+}
+.welcome{
+    padding-right: 20px;
+}
