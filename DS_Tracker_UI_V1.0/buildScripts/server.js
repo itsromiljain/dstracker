@@ -93,42 +93,42 @@ app.get('/api/getAppleL2Manager', async function(req, res){
 
 //Location
 app.get('/api/getLocation', async function(req, res){
-  const response = await apiCalls.getAllLocation();
+  const response = await apiCalls.getLocation();
   res.send(response.data);
   res.end();
 })
 
 //Demand Type
 app.get('/api/getDemandType', async function(req, res){
-  const response = await apiCalls.getAllDemandType();
+  const response = await apiCalls.getDemandType();
   res.send(response.data);
   res.end();
 })
 
 //Lead
 app.get('/api/getLead', async function(req, res){
-  const response = await apiCalls.getAllLead();
+  const response = await apiCalls.getLead();
   res.send(response.data);
   res.end();
 })
 
 //Priority
 app.get('/api/getPriority', async function(req, res){
-  const response = await apiCalls.getAllPriority();
+  const response = await apiCalls.getPriority();
   res.send(response.data);
   res.end();
 })
 
 //Demand Status
 app.get('/api/getDemandStatus', async function(req, res){
-  const response = await apiCalls.getAllDemandStatus();
+  const response = await apiCalls.getDemandStatus();
   res.send(response.data);
   res.end();
 })
 
 //Supply Status
 app.get('/api/getSupplyStatus', async function(req, res){
-  const response = await apiCalls.getAllSupplyStatus();
+  const response = await apiCalls.getSupplyStatus();
   res.send(response.data);
   res.end();
 })
@@ -142,7 +142,7 @@ app.get('/api/getYrOfExp', async function(req, res){
 
 //Submitted By in Supply
 app.get('/api/getSubmittedBy', async function(req, res){
-  const response = await apiCalls.getYrOfExp();
+  const response = await apiCalls.getSubmittedBy();
   res.send(response.data);
   res.end();
 })

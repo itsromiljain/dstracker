@@ -553,8 +553,10 @@ const apiCalls = {
   getLead,
   getPriority,
   getDemandStatus,
+  getSupplyStatus,
   getYrOfExp,
-  Fb_set
+  Fb_set,
+  getSubmittedBy
 };
 
 export default apiCalls;

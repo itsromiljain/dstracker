@@ -192,6 +192,41 @@ class AddnewSupply extends Component {
           console.log(error);
         })
     }
+
+// making API calls
+
+    axios.get('/api/getLocation')
+    .then((response) => {
+
+      if (response.status === 200) {
+        this.setState({ location: response.data });
+      }
+    })
+
+    axios.get('/api/getSupplyStatus')
+    .then((response) => {
+
+      if (response.status === 200) {
+        this.setState({ status: response.data });
+      }
+    })
+
+    axios.get('/api/getSubmittedBy')
+    .then((response) => {
+
+      if (response.status === 200) {
+        this.setState({ submittedby: response.data });
+      }
+    })
+
+    axios.get('/api/getYrOfExp')
+    .then((response) => {
+
+      if (response.status === 200) {
+        this.setState({ yrofexp: response.data });
+      }
+    })
+
   }
 
   render() {
@@ -233,7 +268,7 @@ class AddnewSupply extends Component {
           <select onChange={(e) => this.setForm(e, 'submittedby')} value={this.state.submittedby} >
             {
               this.state.submittedby.map((val, index) => (
-                <option key={index} value={val.submittedById}>{val.submittedBy}</option>
+                <option key={index} value={val.submittedBy}>{val.submittedBy}</option>
               ))
             }
           </select>
@@ -243,7 +278,7 @@ class AddnewSupply extends Component {
           <select onChange={(e) => this.setForm(e, 'yrofexp')} value={this.state.yrofexp} >
             {
               this.state.yrofexp.map((val, i) => (
-                <option key={i} value={val.id}>{val.yrOfExp}</option>
+                <option key={i} value={val.yrOfExp}>{val.yrOfExp}</option>
               ))
             }
           {/* <select onChange={(e) => this.setForm(e, 'yrofexp')} value={this.state.yrofexp} >
@@ -259,7 +294,7 @@ class AddnewSupply extends Component {
           <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
             {
               this.state.status.map((val, i) => (
-                <option key={i} value={val.supplyStatusId}>{val.supplyStatus}</option>
+                <option key={i} value={val.supplyStatus}>{val.supplyStatus}</option>
               ))
             }
            {/* <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
@@ -275,7 +310,7 @@ class AddnewSupply extends Component {
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
                             this.state.location.map((val, i) => (
-                              <option key={i} value={val.loc_id}>{val.location}</option>
+                              <option key={i} value={val.location}>{val.location}</option>
                              
                             ))
           // <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >

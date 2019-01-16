@@ -375,7 +375,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
                             this.state.location.map((val, i) => (
-                              <option key={i} value={val.loc_id}>{val.location}</option>
+                              <option key={i} value={val.location}>{val.location}</option>
                              
                             ))
               // location.map((val, index) => (
@@ -389,7 +389,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'yrOfExp')} value={this.state.yrOfExp} >
             {
               this.state.yrOfExp.map((val, i) => (
-                <option key={i} value={val.id}>{val.yrOfExp}</option>
+                <option key={i} value={val.yrOfExp}>{val.yrOfExp}</option>
               ))
               // yrOfExp.map((val, index) => (
               //   <option key={index} value={val}>{val}</option>
@@ -402,7 +402,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'priority')} value={this.state.priority} >
             {
               this.state.priority.map((val, i) => (
-                <option key={i} value={val.priority_id}>{val.priority}</option>
+                <option key={i} value={val.priority}>{val.priority}</option>
               ))
               // priority.map((val, index) => (
               //   <option key={index} value={val}>{val}</option>
@@ -415,7 +415,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
             {
               this.state.status.map((val, i) => (
-                <option key={i} value={val.status_id}>{val.statusType}</option>
+                <option key={i} value={val.statusType}>{val.statusType}</option>
               ))
               // statusvalues.map((val, index) => (
               //   <option key={index} value={val}>{val}</option>
@@ -451,7 +451,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'applel2manager')} value={this.state.applel2manager}>
             {
               this.state.apple_l2mang.map((val, i) => (
-                <option key={i} value={val.applel2mngr_id}>{val.applel2mngr_name}</option>
+                <option key={i} value={val.applel2mngr_name}>{val.applel2mngr_name}</option>
                 //<option key={i} value={val}>{val}</option>
               ))
             }
@@ -463,7 +463,7 @@ class Addnew extends Component {
           <select onChange={(e) => this.setForm(e, 'lead')} value={this.state.lead}>
             {
               this.state.lead.map((val, i) => (
-              <option key={i} value={val.id}>{val.lead_val}</option>
+              <option key={i} value={val.lead_val}>{val.lead_val}</option>
               // lead.map((val, i) => ( 
               //   <option key={i} value={val}>{val}</option>
               ))
