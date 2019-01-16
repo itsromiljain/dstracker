@@ -30,15 +30,20 @@ class Addnew extends Component {
       demandOnsite: '',
       demandOffsite: '',
       // clientselect: '',
-      location: [],
+      Location:[],
+      location: '',
       desc: '',
-      demandType: [],
-      yrOfExp: [],
-      priority: [],
+      DemandType:[],
+      demandType: '',
+      YrOfExp:[],
+      yrOfExp: '',
+      Priority:[],
+      priority: '',
       role: '',
       suggestedPanel: '',
       // live: moment(),
-      status: [],
+      Status:[],
+      status: '',
       // sfCreationDate: moment(),
       closureDate: moment(),
       //del_mang :[],
@@ -55,7 +60,8 @@ class Addnew extends Component {
       // recruiter: '',
       suggestedPanel: '',
       sf: '',
-      lead: [],
+      Lead:[],
+      lead: '',
       skill: '',
 
     };
@@ -257,7 +263,7 @@ class Addnew extends Component {
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ location: response.data });
+          this.setState({ Location: response.data });
         }
       })
 
@@ -265,7 +271,7 @@ class Addnew extends Component {
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ demandType: response.data });
+          this.setState({ DemandType: response.data });
         }
       })
 
@@ -273,7 +279,7 @@ class Addnew extends Component {
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ lead: response.data });
+          this.setState({ Lead: response.data });
         }
       })
 
@@ -281,14 +287,14 @@ class Addnew extends Component {
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ priority: response.data });
+          this.setState({ Priority: response.data });
         }
       })
       axios.get('/api/getDemandStatus')
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ status: response.data });
+          this.setState({ Status: response.data });
         }
       })
 
@@ -296,7 +302,7 @@ class Addnew extends Component {
       .then((response) => {
 
         if (response.status === 200) {
-          this.setState({ yrOfExp: response.data });
+          this.setState({ YrOfExp: response.data });
         }
       })
   }
@@ -317,7 +323,7 @@ class Addnew extends Component {
           <label>Demand Type</label>
           <select onChange={(e) => this.setForm(e, 'demandType')} value={this.state.demandType} >
             {
-                            this.state.demandType.map((val, i) => (
+                            this.state.DemandType.map((val, i) => (
                               <option key={i} value={val.demand_type_id}>{val.demandType}</option>
                               
                             ))
@@ -374,7 +380,7 @@ class Addnew extends Component {
           <label>Location</label>
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
-                            this.state.location.map((val, i) => (
+                            this.state.Location.map((val, i) => (
                               <option key={i} value={val.location}>{val.location}</option>
                              
                             ))
@@ -388,7 +394,7 @@ class Addnew extends Component {
           <label>Year of Experience</label>
           <select onChange={(e) => this.setForm(e, 'yrOfExp')} value={this.state.yrOfExp} >
             {
-              this.state.yrOfExp.map((val, i) => (
+              this.state.YrOfExp.map((val, i) => (
                 <option key={i} value={val.yrOfExp}>{val.yrOfExp}</option>
               ))
               // yrOfExp.map((val, index) => (
@@ -401,7 +407,7 @@ class Addnew extends Component {
           <label>Priority</label>
           <select onChange={(e) => this.setForm(e, 'priority')} value={this.state.priority} >
             {
-              this.state.priority.map((val, i) => (
+              this.state.Priority.map((val, i) => (
                 <option key={i} value={val.priority}>{val.priority}</option>
               ))
               // priority.map((val, index) => (
@@ -414,7 +420,7 @@ class Addnew extends Component {
           <label>Status</label>
           <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
             {
-              this.state.status.map((val, i) => (
+              this.state.Status.map((val, i) => (
                 <option key={i} value={val.statusType}>{val.statusType}</option>
               ))
               // statusvalues.map((val, index) => (
@@ -462,7 +468,7 @@ class Addnew extends Component {
           <label>Lead</label>
           <select onChange={(e) => this.setForm(e, 'lead')} value={this.state.lead}>
             {
-              this.state.lead.map((val, i) => (
+              this.state.Lead.map((val, i) => (
               <option key={i} value={val.lead_val}>{val.lead_val}</option>
               // lead.map((val, i) => ( 
               //   <option key={i} value={val}>{val}</option>

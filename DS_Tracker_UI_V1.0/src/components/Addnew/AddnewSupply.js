@@ -36,10 +36,14 @@ class AddnewSupply extends Component {
       demandid: '',
       premiumrate: '',
       recruitername: '',
-      submittedby: [],
-      yrofexp: [],
-      status: [],
-      location: [],
+      SubmittedBy:[],
+      submittedby: '',
+      YrOfExp:[],
+      yrofexp: '',
+      Status:[],
+      status: '',
+      Location:[],
+      location: '',
       intext: '',
       onoffshore: '',
       appleinterviewdate: moment(),
@@ -199,7 +203,7 @@ class AddnewSupply extends Component {
     .then((response) => {
 
       if (response.status === 200) {
-        this.setState({ location: response.data });
+        this.setState({ Location: response.data });
       }
     })
 
@@ -207,7 +211,7 @@ class AddnewSupply extends Component {
     .then((response) => {
 
       if (response.status === 200) {
-        this.setState({ status: response.data });
+        this.setState({ Status: response.data });
       }
     })
 
@@ -215,7 +219,7 @@ class AddnewSupply extends Component {
     .then((response) => {
 
       if (response.status === 200) {
-        this.setState({ submittedby: response.data });
+        this.setState({ SubmittedBy: response.data });
       }
     })
 
@@ -223,7 +227,7 @@ class AddnewSupply extends Component {
     .then((response) => {
 
       if (response.status === 200) {
-        this.setState({ yrofexp: response.data });
+        this.setState({ YrOfExp: response.data });
       }
     })
 
@@ -267,7 +271,7 @@ class AddnewSupply extends Component {
           <label>Submitted By</label>
           <select onChange={(e) => this.setForm(e, 'submittedby')} value={this.state.submittedby} >
             {
-              this.state.submittedby.map((val, index) => (
+              this.state.SubmittedBy.map((val, index) => (
                 <option key={index} value={val.submittedBy}>{val.submittedBy}</option>
               ))
             }
@@ -277,7 +281,7 @@ class AddnewSupply extends Component {
           <label>Year of Experience</label>
           <select onChange={(e) => this.setForm(e, 'yrofexp')} value={this.state.yrofexp} >
             {
-              this.state.yrofexp.map((val, i) => (
+              this.state.YrOfExp.map((val, i) => (
                 <option key={i} value={val.yrOfExp}>{val.yrOfExp}</option>
               ))
             }
@@ -293,7 +297,7 @@ class AddnewSupply extends Component {
           <label>Status</label>
           <select onChange={(e) => this.setForm(e, 'status')} value={this.state.status} >
             {
-              this.state.status.map((val, i) => (
+              this.state.Status.map((val, i) => (
                 <option key={i} value={val.supplyStatus}>{val.supplyStatus}</option>
               ))
             }
@@ -309,7 +313,7 @@ class AddnewSupply extends Component {
           <label>Location</label>
           <select onChange={(e) => this.setForm(e, 'location')} value={this.state.location} >
             {
-                            this.state.location.map((val, i) => (
+                            this.state.Location.map((val, i) => (
                               <option key={i} value={val.location}>{val.location}</option>
                              
                             ))
