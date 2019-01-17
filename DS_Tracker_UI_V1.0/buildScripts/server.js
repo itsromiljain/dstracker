@@ -60,6 +60,13 @@ app.post('/api/newSupply', async function(req, res) {
   res.end();
 });
 
+//Upload file
+app.post('/api/endpoint', async function(req, res) {
+  const response = await apiCalls.endpoint(req.body);
+  res.send(response.status);
+  res.end();
+});
+
 // imt related
 // app.get('/api/get_imt', async function(req, res){
 //   const response = await apiCalls.getimt_project();
@@ -145,6 +152,25 @@ app.get('/api/getSubmittedBy', async function(req, res){
   const response = await apiCalls.getSubmittedBy();
   res.send(response.data);
   res.end();
+})
+
+
+//File upload
+app.post('/upload', (req, res, next) => {
+  let uploadFile = req.files.file
+  const fileName = req.files.file.name
+  uploadFile.mv(
+    `${__dirname}/public/files/${fileName}`,
+    function (err) {
+      if (err) {
+        return res.status(500).send(err)
+      }
+
+      res.json({
+        file: `public/${req.files.file.name}`,
+      })
+    },
+  )
 })
 
 /* -------- Skill ---------  */

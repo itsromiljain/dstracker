@@ -536,6 +536,28 @@ const setLogin = (data) => {
   }
 };
 
+//file upload
+const endpoint = (data) => {
+  try {
+    return new Promise((resolve, reject) => {
+      axios.post('http://192.168.43.167:7020/uploadFile', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      })
+      .then((response) => {
+        return resolve(response)
+      })
+      .catch((error) => {
+        return reject(error);
+      });
+    });
+  } catch(error) {
+    console.log(error);
+  }
+};
+
+
 const apiCalls = {
   getAllProjects,
   getSingleProject,

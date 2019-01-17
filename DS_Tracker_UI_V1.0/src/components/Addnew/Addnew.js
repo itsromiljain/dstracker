@@ -63,7 +63,8 @@ class Addnew extends Component {
       Lead:[],
       lead: '',
       skill: '',
-
+      selectedFile: null, 
+      loaded: 0
     };
     this.alertClick = (flag) => {
       this.setState({ projectRes: flag }, () => {
@@ -81,6 +82,33 @@ class Addnew extends Component {
    */
     this.changeClosureDate = (date) => {
       this.setState({ closureDate: date });
+    };
+
+// Handling file upload events
+
+    this.handleselectedFile = event => {
+      this.setState({
+        selectedFile: event.target.files[0],
+        loaded: 0,
+      })
+    };
+
+    this.handleUpload = () => {
+      const data = new FormData()
+      data.append('file', this.state.selectedFile, this.state.selectedFile.name)
+  
+      axios
+        .post('/api/endpoint', data, {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total*100),
+            })
+          },
+        })
+        .then(res => {
+          console.log(res.statusText)
+        })
+  
     };
 
     this.setForm = (e, param) => {
@@ -492,6 +520,13 @@ class Addnew extends Component {
         <div className="addnew_form-field full-field">
           <label>Description</label>
           <textarea value={this.state.desc} onChange={(e) => this.setForm(e, 'desc')} />
+        </div>
+
+        <div className="fileUpload">    
+          <input type="file" className="fileUpload_selectFile" onChange={this.handleselectedFile} />
+          <button onClick={this.handleUpload} className="fileUpload_uploadFile"><i className="material-icons">file_upload</i></button>
+          {/* <div className> {Math.round(this.state.loaded,2) } %</div> */}
+          <progress id="progressBar" value={Math.round(this.state.loaded,2)} max="100" style={{width:'100%'}}></progress>
         </div>
 
         <p className="addnew_form-error">{this.state.validationMsg}</p>
