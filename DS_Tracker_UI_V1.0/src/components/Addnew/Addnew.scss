@@ -73,7 +73,7 @@
     width: 100%;
     height: 50px;
     border: $green;
-    background: $green;
+    background: black;
     border-radius: 3px;
     color: $white;
     font-size: ceil($font20 - 3);
@@ -84,7 +84,23 @@
     width: 30%;
    margin:0 auto;
   }
-  
+
+}
+.fileUpload {
+  padding: 20px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: x-large;
+
+  &_selectFile{
+    font-size: medium;
+  }
+
+  &_uploadFile{
+    padding: 20px;
+    border-radius:50%;
+    background: black;
+    color: white;
+  }
 }
 
 .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle, .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle, .react-datepicker__year-read-view--down-arrow,
