@@ -1,14 +1,18 @@
 package com.tracker.supply.service.impl;
 
+
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tracker.supply.model.SupplyDtls;
 import com.tracker.supply.repository.SupplyRepository;
+
 import com.tracker.supply.service.SupplyService;
 
 @Service
@@ -41,6 +45,13 @@ public class SupplyServiceImpl implements SupplyService {
 	@Override
 	public SupplyDtls addSupply(SupplyDtls s) {
 		return supplyRepository.save(s);
+	}
+
+
+	@Override
+	public String storeFile(MultipartFile file) {
+		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());		
+			return fileName;		
 	}
 	
 //	@Override

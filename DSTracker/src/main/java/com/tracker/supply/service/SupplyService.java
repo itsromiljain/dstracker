@@ -14,5 +14,6 @@ public interface SupplyService {
 	public SupplyDtls addSupply(SupplyDtls s);
 	public void UpdateSupply(SupplyDtls s);
 	public void deleteSupply(long id);
+	public String storeFile(MultipartFile file);
 
 }
