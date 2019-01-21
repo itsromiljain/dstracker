@@ -21,6 +21,7 @@ public class SupplyServiceImpl implements SupplyService {
 	@Autowired
 	private SupplyRepository supplyRepository;
 	
+	
 	@Override
 	public List<SupplyDtls> getAllSupply() {
 		return supplyRepository.findAll();
@@ -51,7 +52,7 @@ public class SupplyServiceImpl implements SupplyService {
 	@Override
 	public String storeFile(MultipartFile file) {
 		  String fileName = StringUtils.cleanPath(file.getOriginalFilename());		
-			return fileName;		
+			return fileName;			
 	}
 	
 //	@Override
