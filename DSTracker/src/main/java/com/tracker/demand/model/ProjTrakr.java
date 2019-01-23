@@ -1,8 +1,11 @@
 package com.tracker.demand.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -56,6 +59,10 @@ public class ProjTrakr implements Serializable {
 	private String sf;
 	@Column(name = "skill")
 	private String skill;
+	@Column(name = "suggestedSupply2")
+	@ElementCollection(targetClass=Integer.class)
+	private List<BigInteger> suggestedSupply2;
+
 
 	public long getId() {
 		return id;
@@ -208,5 +215,20 @@ public class ProjTrakr implements Serializable {
 	public void setSkill(String skill) {
 		this.skill = skill;
 	}
+
+	
+
+	public void setSuggestedSupply(List<BigInteger> suggestedSupply2) {
+		// TODO Auto-generated method stub
+		this.suggestedSupply2 = suggestedSupply2;
+	}
+
+	public List<BigInteger> getSuggestedSupply2() {
+		return suggestedSupply2;
+	}
+
+	
+
+	
 
 }

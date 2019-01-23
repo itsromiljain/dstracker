@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
@@ -43,7 +47,9 @@ import com.tracker.supply.service.SupplyService;
 public class SupplyController {
 	@Autowired
 	private SupplyService supplyService;
-	private SupplyRepository supplyRepository;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
 	@GetMapping("/getAllsupply/")
 	public ResponseEntity<List<SupplyDtls>> getAllProjects() {
@@ -117,15 +123,23 @@ public class SupplyController {
 		fos = new FileOutputStream(convFile);
 		fos.write(file.getBytes());
 		fos.close();
-		List<String> skil = supplyRepository.findSkills();
-		System.out.println(skil);
+		
+//		List<String> skil = supplyRepository.findSkills();
+//		System.out.println(skil);
 	
 		
-	//	String[] s = { "Java", "Spring", "MySQL", "Kafka", "Casandra" };
+	
+			StringBuilder sb = new StringBuilder();
+			sb.append("Select skill from skill");
+			List<String> skil = entityManager.createNativeQuery(sb.toString()).getResultList();
+			System.out.println("skill list");
+			System.out.println(skil);
+		
+		//String[] s = { "Java", "Spring", "MySQL", "Kafka", "Casandra" };
 		HashSet<String> set = new HashSet<String>();
 		for (String strTemp : skil) {
 
-			System.out.println(strTemp);
+		
 
 			if (file.getContentType().equalsIgnoreCase("application/msword")) {
 				try {
@@ -136,11 +150,11 @@ public class SupplyController {
 							set.add(strTemp);
 						}
 					}
+					reader.close();
 				} catch (Exception ex) {
 					System.out.println("exception: " + ex);
 				}
 			} else if (file.getContentType().equalsIgnoreCase("application/pdf")) {
-				System.out.println("Pdf file");
 				try {
 					PdfReader reader = new PdfReader(convFile.toString());
 					int pages = reader.getNumberOfPages();
@@ -170,6 +184,8 @@ public class SupplyController {
 			}
 		
 		}
+		System.out.println("set");
+	System.out.println(set);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
 				.path(fileName).toUriString();
 

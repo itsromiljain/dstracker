@@ -40,6 +40,7 @@ public class SupplyDtls implements Serializable {
 	private String sfid;
 	@Column(name = "description")
 	private String desc;
+
 //	private String fileName;
 //	private String fileType;
 //	@Lob
