@@ -62,21 +62,38 @@ public class TrackerController {
 	@GetMapping("/tracker/{id}")
 	public ResponseEntity<ProjTrakr> getaProject(@PathVariable("id") long id) {
 		ProjTrakr project;
-		List<BigInteger> suggestedSupply = new ArrayList<BigInteger>();
+		List<BigInteger> suggestedSupplyList = new ArrayList<BigInteger>();
 		try {
+			List<BigInteger> suggestedSupply = new ArrayList<BigInteger>();
 			project = (ProjTrakr) trackerService.getAllProj(id).get(0);
 			String skill = project.getSkill();
-		//	System.out.println("demand Skill: " + skill);
+			//System.out.println("demand Skill: " + skill);
 			List<String> elephantList = Arrays.asList(skill.split(","));
 
 			StringBuilder sb = new StringBuilder();
 			sb.append("Select supplyId from supplydtls");
 			List<BigInteger> supplyid = entityManager.createNativeQuery(sb.toString()).getResultList();
 			//System.out.println("skill list:   " + supplyid);
-
+			
 	
 			for (BigInteger temp : supplyid) {
 				//System.out.println(temp);
+				StringBuilder sb2 = new StringBuilder();
+				sb2.append(
+						"(Select skill as skill, supplyname from supplydtls where supplyid="+temp);
+				//sb2.append("Select supplyname from supplydtls where supplyid="+temp);
+				List<Object> skill2 = entityManager.createNativeQuery(sb2.toString()).getResultList();
+				System.out.println("skill size:   " + skill2.size());
+
+				
+			
+				for (int i=0; i<skill2.size(); i++){
+				  // System.out.println("Element "+i+skill2.get(i));
+					 Object[] row = (Object[]) skill2.get(i);
+					 String a = Arrays.toString(row);
+ 					 System.out.println("Element "+i+a);
+					   
+				}
 				
 				StringBuilder sb1 = new StringBuilder();
 				sb1.append("Select skill from supplydtls where supplyid="+temp);
@@ -93,7 +110,7 @@ public class TrackerController {
 				    
 				   
 				    if(x == true) {
-				    	// System.out.println("match list:   " + temp);
+				    	//System.out.println("match list:   " + temp);
 				    	 suggestedSupply.add(temp);
 				    }else {
 				    	System.out.println("nonmatch list:   " + skill1);

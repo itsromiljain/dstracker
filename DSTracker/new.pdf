@@ -1,0 +1,123 @@
+   Jasmeen.H
+ 
+    Jasmeen.H
+  Experience Summary
+• 3+ years of experience in developing applications using Java.
+• Experience in software life cycle starting with analysis, development, unit testing, and
+deployment of software applications
+• Working Knowledge on Spring Boot, Spring MVC in Spring Framework.
+• Programming in Java/J2EE
+• Working Knowledge on Agile Software Development with Scrum
+• Good knowledge of REST API.
+   Skills Summary
+      Domain
+       Banking, Secure Mail Service, Health Care
+    Languages
+ Strong programming skills in JAVA, Multithreading, Collections, Concurrency J2EE.
+       Operating System
+       Windows 10
+    Technologies /Framework
+ Spring Framework, Servlet, Web Services (JAX-RS), JSP, JS, jQuery, MySQL, Core Java, Multithreading, Concurrency, Data structures, J2EE, Design Patterns, JPA, Hibernate
+       RDBMS/NOSQL
+       Good Knowledge of SQL and Data Creation and Manipulation with SQL
+    Configuration/Build and Project Management
+ Tortoise SVN, GIT
+       Web Development
+     Spring MVC, Spring Boot, HTML, JSP, jQuery, JavaScript, CSS, XML, JSON
+  LTI Confidential
+Page 2 of 2
+  
+    Work Experience
+Jasmeen.H
+      Project 1
+        Project Name
+ Impact Based Testing
+     Team Size
+     4
+       Start Date
+    Aug 2018
+       End Date
+       Dec 2018
+     Project Description
+ The approach for impact-based analysis is to identify the config files (plists) consumed by the APU workflow services. To identify the plists the service browser page can be used to run a service and in the debug page, the plists consumed by the service gets published.
+The published information can be used to create the mapping document between the service and plists. The user has to provide the start & end Commit Ids to identify the plists modified/added/deleted in the config repositories for APU services. The change in plist file names can be compared with the plist file names in the mapping document. If the plists are modified in the mapping document, then corresponding test suites that need to be run will be marked. The execution can then be triggered manually or through existing jobs in Jenkins.
+       Role & Contribution
+  • Developed restful services using spring boot.
+• Written code for getting list of Plist files changed between two
+commit id’s using bitbucket API.
+• Developed Jenkins job Using Jenkins API.
+• Integrated Tomcat 8.5 to run our developed restful webservices.
+• Involved in review of the functions and scripts developed by other
+team members.
+• Integrating rest service through jQuery Ajax call. Bootstrap for
+responsive UI
+• Involved in project structure. Involved in Configuration and in
+Build.
+• Used LDAP directory server and postures database for offline
+activities
+       Technology &Tools
+      Java , Spring Boot, Bitbucket, RESTAPI, Jenkins.
+    Project 2
+        Project Name
+   Military Messaging Service
+      Team Size
+        10
+  LTI Confidential
+Page 3 of 3
+  
+    Jasmeen.H
+      Start Date
+     Feb 2017
+      End Date
+       Jun 2018
+     Project Description
+ This Project is basically a secure internal mailing service for defense people.
+User Logins to his mail box using username, password and OTP obtained in his OTP Device.
+Mail Drafted will be sent to actual recipient through various check by sender’s review, approver, Designated User and receiver Designated User.
+Every mail sent will be encrypted, digitally signed and triple wrapped through his own self certificate and private key in his token to ensure no data leak through the network.
+Mail will be reaching the recipients based on all security standards followed by ARMY/NAVY
+       Role & Contribution
+  • Designed JSP’s as per the requirements.
+• Involved in writing of code in Spring Rest Service,
+• Deployed the application on a secure web server incorporating
+security features such as restricted login attempts and user-based
+access privilege using spring security.
+• Integrating rest service through jQuery Ajax call for secured
+internal communication and using Bootstrap for responsive UI
+• integrated Secure MIME, Token and OTP facility for each and
+every user.
+• Involved in project structure. Involved in Configuration and in
+Build.
+• Used LDAP directory server and postures database for offline
+activities
+        Technology &Tools
+      Java, jQuery, Spring RESTAPI
+    Project 3
+      Project Name
+ BNI
+   Team Size
+    6
+       Start Date
+   Sep 2016
+       End Date
+       Jan 2017
+  LTI Confidential
+Page 4 of 4
+  
+    Jasmeen.H
+      Project Description
+   This project is an Banking application, Processing HTML and JSP’s was used with REST services embedded in them and MySQL was Used for RDBMS processing. The JDBC-ODBC drivers were extensively used for connection between the front-end.
+This Project is an Banking application, where in a user can have multiple accounts and authenticated using his mobile number and OTP .
+Every transaction has been approved by assigned approvers.
+       Role & Contribution
+  • Designed a secured banking web application using spring MVC having role-based access control and privilege control where external users could perform banking transactions like Debit/credit, transfer funds, E-Banking and maintain logs
+• Developed a MVC model for banking transactions using maven project with hibernate for database interactions and Bootstrap for UI design.
+• Deployed the application on a secure web server incorporating security features such as restricted login attempts and user-based access privilege using spring security.
+        Technology &Tools
+      Java, Spring MVC, Maven, Hibernate, MySQL
+    Educational Qualification
+           Education & Credentials
+ Bachelor of Engineering (ECE) from Visveswaraya Technological University (2014)
+ LTI Confidential
+Page 5 of 5
+  

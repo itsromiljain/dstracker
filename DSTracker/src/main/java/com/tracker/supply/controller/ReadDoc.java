@@ -6,10 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 
-
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+//
+//import org.apache.poi.openxml4j.opc.OPCPackage;
+//import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+//import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 
 

@@ -3,7 +3,6 @@ package com.tracker.supply.controller;
 import java.io.BufferedReader;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -17,9 +16,6 @@ import javax.persistence.PersistenceContext;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -35,10 +31,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.tracker.admin.model.Skill;
 import com.tracker.supply.model.SupplyDtls;
 import com.tracker.supply.model.UploadFileResponse;
-import com.tracker.supply.repository.SupplyRepository;
 import com.tracker.supply.service.FileStorageException;
 import com.tracker.supply.service.SupplyService;
 
@@ -169,19 +163,20 @@ public class SupplyController {
 					System.out.println("exception: " + ex);
 				}
 
-			}else {
-				 try {
-				   FileInputStream fis = new FileInputStream(convFile);
-				   XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-				   XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);				   
-				   if(extractor.getText().contains(strTemp)) {
-					   set.add(strTemp);
-				   }
-				 }
-				catch(Exception ex) {
-				    ex.printStackTrace();
-				}
 			}
+//			else {
+//				 try {
+//				   FileInputStream fis = new FileInputStream(convFile);
+//				   XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+//				   XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);				   
+//				   if(extractor.getText().contains(strTemp)) {
+//					   set.add(strTemp);
+//				   }
+//				 }
+//				catch(Exception ex) {
+//				    ex.printStackTrace();
+//				}
+//			}
 		
 		}
 		System.out.println("set");
