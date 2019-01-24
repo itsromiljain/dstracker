@@ -121,7 +121,7 @@ public class SupplyController {
 //		List<String> skil = supplyRepository.findSkills();
 //		System.out.println(skil);
 	
-		
+
 	
 			StringBuilder sb = new StringBuilder();
 			sb.append("Select skill from skill");
@@ -130,6 +130,7 @@ public class SupplyController {
 			System.out.println(skil);
 		
 		//String[] s = { "Java", "Spring", "MySQL", "Kafka", "Casandra" };
+
 		HashSet<String> set = new HashSet<String>();
 		for (String strTemp : skil) {
 

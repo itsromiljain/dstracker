@@ -3,7 +3,7 @@ import axios from 'axios';
 const getAllProjects = () => {
   try {
     return new Promise((resolve, reject) => {
-      axios.get('http://localhost:7020/tracker/')
+      axios.get('http://localhost:7020/tracker/1')
       .then((response) => {
         return resolve(response)
       })

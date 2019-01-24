@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -67,56 +68,47 @@ public class TrackerController {
 			List<BigInteger> suggestedSupply = new ArrayList<BigInteger>();
 			project = (ProjTrakr) trackerService.getAllProj(id).get(0);
 			String skill = project.getSkill();
-			//System.out.println("demand Skill: " + skill);
+
 			List<String> elephantList = Arrays.asList(skill.split(","));
+			   System.out.println(elephantList);
 
-			StringBuilder sb = new StringBuilder();
-			sb.append("Select supplyId from supplydtls");
-			List<BigInteger> supplyid = entityManager.createNativeQuery(sb.toString()).getResultList();
-			//System.out.println("skill list:   " + supplyid);
 			
-	
-			for (BigInteger temp : supplyid) {
-				//System.out.println(temp);
-				StringBuilder sb2 = new StringBuilder();
-				sb2.append(
-						"(Select skill as skill, supplyname from supplydtls where supplyid="+temp);
-				//sb2.append("Select supplyname from supplydtls where supplyid="+temp);
-				List<Object> skill2 = entityManager.createNativeQuery(sb2.toString()).getResultList();
-				System.out.println("skill size:   " + skill2.size());
-
-				
 			
-				for (int i=0; i<skill2.size(); i++){
-				  // System.out.println("Element "+i+skill2.get(i));
-					 Object[] row = (Object[]) skill2.get(i);
-					 String a = Arrays.toString(row);
- 					 System.out.println("Element "+i+a);
-					   
-				}
-				
-				StringBuilder sb1 = new StringBuilder();
-				sb1.append("Select skill from supplydtls where supplyid="+temp);
-				List<String> skill1 = entityManager.createNativeQuery(sb1.toString()).getResultList();
-			//	System.out.println("skill list:   " + skill1);
-				String pattern = elephantList.stream()
-				          .map(Pattern::quote)
-				          .collect(Collectors.joining("|", ".*(", ").*"));
+			StringBuilder sb3 = new StringBuilder();
+			sb3.append("Select supplyid,skill,supplyname from supplydtls");
+			List<Object[]> results = entityManager.createNativeQuery(sb3.toString()).getResultList();
 
-				    Pattern re = Pattern.compile(pattern);
+			results.stream().forEach((record) -> {
+				BigInteger sid = (BigInteger) record[0];
+			      //  System.out.println(sid);
+			        String skilltest = (String) record[1];
+			     //   System.out.println(skilltest);
+			        List<String> supplyList = Arrays.asList(skilltest.split(","));
+			        System.out.println(supplyList);
+			        String supplyname = (String) record[2];
+			      //  System.out.println(supplyname);
+			        
+			        String pattern = elephantList.stream()
+					          .map(Pattern::quote)
+					          .collect(Collectors.joining("|", ".*(", ").*"));
 
-				    boolean x =  skill1.stream()
-				        .allMatch(t -> re.matcher(t).matches());
-				    
-				   
-				    if(x == true) {
-				    	//System.out.println("match list:   " + temp);
-				    	 suggestedSupply.add(temp);
-				    }else {
-				    	System.out.println("nonmatch list:   " + skill1);
-				    }
-			}
+					    Pattern re = Pattern.compile(pattern);
+					  
+					    
+					    boolean x = supplyList.stream()
+						        .anyMatch(t -> re.matcher(t).matches());
+					 
+					    if(x == true) {
+					    	System.out.println("match list:   " + sid);
+					    	 suggestedSupply.add(sid);
+					    }else {
+					    	System.out.println("nonmatch list:   " + sid);
+					    }
+			        
+			});
 			
+			
+		
 			 System.out.println("match list:   " + suggestedSupply);
 		 project.setSuggestedSupply(suggestedSupply);
 			
