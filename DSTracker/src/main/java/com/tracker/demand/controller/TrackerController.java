@@ -3,6 +3,7 @@ package com.tracker.demand.controller;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -49,69 +50,51 @@ public class TrackerController {
 		}
 	}
 
-	// @GetMapping("/tracker/{id}")
-	// public ResponseEntity<ProjTrakr> getaProject(@PathVariable("id") long id) {
-	// ProjTrakr project;
-	// try {
-	// project = (ProjTrakr) trackerService.getAllProj(id).get(0);
-	// return ResponseEntity.ok().body(project);
-	// } catch (ResourceNotFoundException e) {
-	// return ResponseEntity.notFound().build();
-	// }
-	// }
-
 	@GetMapping("/tracker/{id}")
 	public ResponseEntity<ProjTrakr> getaProject(@PathVariable("id") long id) {
 		ProjTrakr project;
-		List<BigInteger> suggestedSupplyList = new ArrayList<BigInteger>();
+
 		try {
-			List<BigInteger> suggestedSupply = new ArrayList<BigInteger>();
+			List<Object> suggestedSupply = new ArrayList<Object>();
+
 			project = (ProjTrakr) trackerService.getAllProj(id).get(0);
 			String skill = project.getSkill();
 
-			List<String> elephantList = Arrays.asList(skill.split(","));
-			   System.out.println(elephantList);
+			List<String> elephantList = Arrays.asList(skill.split(","));			
 
-			
-			
 			StringBuilder sb3 = new StringBuilder();
 			sb3.append("Select supplyid,skill,supplyname from supplydtls");
 			List<Object[]> results = entityManager.createNativeQuery(sb3.toString()).getResultList();
 
 			results.stream().forEach((record) -> {
+				Map<Object, Object> ocurenceMap = new HashMap<Object, Object>();
 				BigInteger sid = (BigInteger) record[0];
-			      //  System.out.println(sid);
-			        String skilltest = (String) record[1];
-			     //   System.out.println(skilltest);
-			        List<String> supplyList = Arrays.asList(skilltest.split(","));
-			        System.out.println(supplyList);
-			        String supplyname = (String) record[2];
-			      //  System.out.println(supplyname);
-			        
-			        String pattern = elephantList.stream()
-					          .map(Pattern::quote)
-					          .collect(Collectors.joining("|", ".*(", ").*"));
 
-					    Pattern re = Pattern.compile(pattern);
-					  
-					    
-					    boolean x = supplyList.stream()
-						        .anyMatch(t -> re.matcher(t).matches());
-					 
-					    if(x == true) {
-					    	System.out.println("match list:   " + sid);
-					    	 suggestedSupply.add(sid);
-					    }else {
-					    	System.out.println("nonmatch list:   " + sid);
-					    }
-			        
+				String skilltest = (String) record[1];
+
+				List<String> supplyList = Arrays.asList(skilltest.split(","));
+				
+				String supplyname = (String) record[2];
+
+				String pattern = elephantList.stream().map(Pattern::quote)
+						.collect(Collectors.joining("|", ".*(", ").*"));
+
+				Pattern re = Pattern.compile(pattern);
+
+				boolean x = supplyList.stream().anyMatch(t -> re.matcher(t).matches());
+
+				if (x == true) {
+
+					ocurenceMap.put("supplyId", sid);
+					ocurenceMap.put("skilltest", skilltest);
+
+					ocurenceMap.put("supplyname", supplyname);
+					suggestedSupply.add(ocurenceMap);
+				}
 			});
-			
-			
-		
-			 System.out.println("match list:   " + suggestedSupply);
-		 project.setSuggestedSupply(suggestedSupply);
-			
+
+			project.setSuggestedSupply(suggestedSupply);
+
 			return ResponseEntity.ok().body(project);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();

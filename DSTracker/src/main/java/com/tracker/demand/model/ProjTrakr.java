@@ -61,7 +61,7 @@ public class ProjTrakr implements Serializable {
 	private String skill;
 	@Column(name = "suggestedSupply2")
 	@ElementCollection(targetClass=Integer.class)
-	private List<BigInteger> suggestedSupply2;
+	private List<Object> suggestedSupply2;
 
 
 	public long getId() {
@@ -218,12 +218,12 @@ public class ProjTrakr implements Serializable {
 
 	
 
-	public void setSuggestedSupply(List<BigInteger> suggestedSupply2) {
+	public void setSuggestedSupply(List<Object> suggestedSupply) {
 		// TODO Auto-generated method stub
-		this.suggestedSupply2 = suggestedSupply2;
+		this.suggestedSupply2 = suggestedSupply;
 	}
 
-	public List<BigInteger> getSuggestedSupply2() {
+	public List<Object> getSuggestedSupply2() {
 		return suggestedSupply2;
 	}
 
