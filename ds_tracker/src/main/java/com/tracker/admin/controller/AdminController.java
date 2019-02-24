@@ -1,41 +1,14 @@
 package com.tracker.admin.controller;
 
+import com.tracker.admin.model.*;
+import com.tracker.admin.service.*;
+import com.tracker.common.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.tracker.admin.model.AppleManager;
-import com.tracker.admin.model.DemandType;
-import com.tracker.admin.model.Lead;
-import com.tracker.admin.model.Location;
-import com.tracker.admin.model.PanelList;
-import com.tracker.admin.model.PremiumRate;
-import com.tracker.admin.model.Priority;
-import com.tracker.admin.model.Skill;
-import com.tracker.admin.model.Status;
-import com.tracker.admin.model.SubmittedBy;
-import com.tracker.admin.model.SupplyStatus;
-import com.tracker.admin.model.YrOfExp;
-import com.tracker.admin.service.AppleManagerService;
-import com.tracker.admin.service.DemandTypeService;
-import com.tracker.admin.service.LeadService;
-import com.tracker.admin.service.LocationService;
-import com.tracker.admin.service.PanelListService;
-import com.tracker.admin.service.PremiumRateService;
-import com.tracker.admin.service.PriorityService;
-import com.tracker.admin.service.SkillService;
-import com.tracker.admin.service.StatusService;
-import com.tracker.admin.service.SubmittedByService;
-import com.tracker.admin.service.SupplyStatusService;
-import com.tracker.admin.service.YrOfExpService;
 
 @RestController
 public class AdminController {

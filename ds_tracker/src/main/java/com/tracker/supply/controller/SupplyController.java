@@ -1,40 +1,25 @@
 package com.tracker.supply.controller;
 
-import java.io.BufferedReader;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.PdfTextExtractor;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import com.tracker.common.ResourceNotFoundException;
 import com.tracker.supply.model.SupplyDtls;
 import com.tracker.supply.model.UploadFileResponse;
 import com.tracker.supply.service.FileStorageException;
 import com.tracker.supply.service.SupplyService;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.io.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -56,22 +41,6 @@ public class SupplyController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
-	/*
-	 * @GetMapping("/supply/{id}") public ResponseEntity<Optional<supplyDtls>>
-	 * getaProject(@PathVariable("id") long id) { SupplyDtls supplyDtls; try {
-	 * Optional<supplyDtls> = (SupplyDtls) supplyService.getSupply(id); return
-	 * ResponseEntity.ok().body(supplyDtls); } catch (ResourceNotFoundException e) {
-	 * return ResponseEntity.notFound().build(); } }
-	 * 
-	 * @PostMapping("/supply") public ResponseEntity<SupplyDtls> registerProject(
-	 * , @RequestPart("file")MultipartFile[] file) {
-	 * 
-	 * 
-	 * SupplyDtls supplyDtls = supplyService.addSupply(nwsupplyDtls,file); try {
-	 * return ResponseEntity.status(201).body(supplyDtls); } catch (Exception e) {
-	 * return ResponseEntity.status(404).build(); } }
-	 */
 
 	@PostMapping("/supply")
 	public ResponseEntity<SupplyDtls> registerProject(@RequestBody SupplyDtls nwsupplyDtls) {
@@ -117,11 +86,6 @@ public class SupplyController {
 		fos = new FileOutputStream(convFile);
 		fos.write(file.getBytes());
 		fos.close();
-		
-//		List<String> skil = supplyRepository.findSkills();
-//		System.out.println(skil);
-	
-
 	
 			StringBuilder sb = new StringBuilder();
 			sb.append("Select skill from skill");
@@ -133,8 +97,6 @@ public class SupplyController {
 
 		HashSet<String> set = new HashSet<String>();
 		for (String strTemp : skil) {
-
-		
 
 			if (file.getContentType().equalsIgnoreCase("application/msword")) {
 				try {
@@ -151,33 +113,23 @@ public class SupplyController {
 				}
 			} else if (file.getContentType().equalsIgnoreCase("application/pdf")) {
 				try {
-					PdfReader reader = new PdfReader(convFile.toString());
-					int pages = reader.getNumberOfPages();
-					for (int i = 1; i <= pages; i++) {
-						String textFromPage = PdfTextExtractor.getTextFromPage(reader, i);
-						if (textFromPage.contains(strTemp)) {
+					PDDocument document = PDDocument.load(convFile);
+					if (!document.isEncrypted()) {
+						PDFTextStripperByArea stripper = new PDFTextStripperByArea();
+						stripper.setSortByPosition(true);
+
+						PDFTextStripper tStripper = new PDFTextStripper();
+
+						String pdfFileInText = tStripper.getText(document);
+						if (pdfFileInText.contains(strTemp)) {
 							set.add(strTemp);
 						}
 					}
-					reader.close();
 				} catch (Exception ex) {
 					System.out.println("exception: " + ex);
 				}
 
 			}
-//			else {
-//				 try {
-//				   FileInputStream fis = new FileInputStream(convFile);
-//				   XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
-//				   XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);				   
-//				   if(extractor.getText().contains(strTemp)) {
-//					   set.add(strTemp);
-//				   }
-//				 }
-//				catch(Exception ex) {
-//				    ex.printStackTrace();
-//				}
-//			}
 		
 		}
 		System.out.println("set");
@@ -187,13 +139,5 @@ public class SupplyController {
 
 		return new UploadFileResponse(fileName, fileDownloadUri, set, file.getContentType(), file.getSize());
 	}
-	
-	
-
-//	private List<Skill> test(SupplyRepository repository)
-//	    {
-//		 List<Skill> skil = repository.findProjects();
-//		 return skil;	
-//	    }
 
 }
