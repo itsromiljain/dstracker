@@ -8,18 +8,6 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 public  class DeptIdGenerator implements IdentifierGenerator{
-//	@Override
-//	public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
-//		try {
-//			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-MM-mm-ss");
-//			return simpleDateFormat.format(new Date());
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-	
-	
 	@Override
 	 public Serializable generate(SharedSessionContractImplementor session, Object object)
 	            throws HibernateException {
@@ -40,7 +28,6 @@ public  class DeptIdGenerator implements IdentifierGenerator{
 	                return generatedId;
 	            }
 	        } catch (SQLException e) {
-	            // TODO Auto-generated catch block
 	            e.printStackTrace();
 	        }
 

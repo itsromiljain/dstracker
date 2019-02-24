@@ -27,7 +27,5 @@ public class SkillServiceImpl implements SkillService {
 	public List<Skill> getAllSkill() {
 		return skillRepo.findAll();
 	}
-	
-	
 
 }

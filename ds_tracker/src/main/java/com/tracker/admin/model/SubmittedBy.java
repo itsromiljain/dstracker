@@ -1,30 +1,22 @@
 package com.tracker.admin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name="submittedBy")
 public class SubmittedBy {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "submittedById")
 	private long submittedById;
-	private String submittedBy;
-	public long getSubmittedById() {
-		return submittedById;
-	}
-	public void setSubmittedById(long submittedById) {
-		this.submittedById = submittedById;
-	}
-	public String getSubmittedBy() {
-		return submittedBy;
-	}
-	public void setSubmittedBy(String submittedBy) {
-		this.submittedBy = submittedBy;
-	}
-	
 
+	@Column(name = "submittedBy")
+	private String submittedBy;
 }

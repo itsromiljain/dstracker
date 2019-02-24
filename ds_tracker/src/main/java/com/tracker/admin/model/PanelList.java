@@ -1,31 +1,24 @@
 package com.tracker.admin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name="PanelList")
+@Table(name="panelList")
 public class PanelList {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long PanelList_id;
-	private String PanelList;
-	public long getPanelList_id() {
-		return PanelList_id;
-	}
-	public void setPanelList_id(long panelList_id) {
-		PanelList_id = panelList_id;
-	}
-	public String getPanelList() {
-		return PanelList;
-	}
-	public void setPanelList(String panelList) {
-		PanelList = panelList;
-	}
-	
+	@Column(name = "panelistId")
+	private long panelistId;
+
+	@Column(name = "panelistName")
+	private String PanelListName;
 
 }

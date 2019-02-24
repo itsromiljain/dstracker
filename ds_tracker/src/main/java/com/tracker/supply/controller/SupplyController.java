@@ -1,9 +1,9 @@
 package com.tracker.supply.controller;
 
 import com.tracker.common.ResourceNotFoundException;
-import com.tracker.supply.model.SupplyDtls;
+import com.tracker.supply.model.SupplyDetail;
 import com.tracker.supply.model.UploadFileResponse;
-import com.tracker.supply.service.FileStorageException;
+import com.tracker.common.FileStorageException;
 import com.tracker.supply.service.SupplyService;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -30,9 +30,9 @@ public class SupplyController {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@GetMapping("/getAllsupply/")
-	public ResponseEntity<List<SupplyDtls>> getAllProjects() {
-		List<SupplyDtls> projects = new LinkedList<SupplyDtls>();
+	@GetMapping("/supply")
+	public ResponseEntity<List<SupplyDetail>> getAllSupply() {
+		List<SupplyDetail> projects = new LinkedList<SupplyDetail>();
 		try {
 			
 			projects = supplyService.getAllSupply();
@@ -42,10 +42,20 @@ public class SupplyController {
 		}
 	}
 
-	@PostMapping("/supply")
-	public ResponseEntity<SupplyDtls> registerProject(@RequestBody SupplyDtls nwsupplyDtls) {
+	@GetMapping("/supply/{id}")
+	public ResponseEntity<List<SupplyDetail>> getSupplyById(@PathVariable("id") long id) {
+		try {
+			List<SupplyDetail> projects = supplyService.getAllSupply();
+			return ResponseEntity.ok().body(projects);
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-		SupplyDtls supplyDtls = supplyService.addSupply(nwsupplyDtls);
+	@PostMapping("/supply")
+	public ResponseEntity<SupplyDetail> addSupply(@RequestBody SupplyDetail nwsupplyDtls) {
+
+		SupplyDetail supplyDtls = supplyService.addSupply(nwsupplyDtls);
 		try {
 			return ResponseEntity.status(201).body(supplyDtls);
 		} catch (Exception e) {
@@ -54,9 +64,9 @@ public class SupplyController {
 	}
 
 	@PutMapping("/supply/{id}")
-	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody SupplyDtls exstsupplyDtls) {
+	public ResponseEntity<Void> updateSupply(@PathVariable long id, @RequestBody SupplyDetail exstsupplyDtls) {
 		try {
-			supplyService.UpdateSupply(exstsupplyDtls);
+			supplyService.updateSupply(exstsupplyDtls);
 			return ResponseEntity.noContent().build();
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
@@ -87,14 +97,9 @@ public class SupplyController {
 		fos.write(file.getBytes());
 		fos.close();
 	
-			StringBuilder sb = new StringBuilder();
-			sb.append("Select skill from skill");
-			List<String> skil = entityManager.createNativeQuery(sb.toString()).getResultList();
-			System.out.println("skill list");
-			System.out.println(skil);
-		
-		//String[] s = { "Java", "Spring", "MySQL", "Kafka", "Casandra" };
-
+		StringBuilder sb = new StringBuilder();
+		sb.append("Select skill from skill");
+		List<String> skil = entityManager.createNativeQuery(sb.toString()).getResultList();
 		HashSet<String> set = new HashSet<String>();
 		for (String strTemp : skil) {
 
@@ -109,7 +114,7 @@ public class SupplyController {
 					}
 					reader.close();
 				} catch (Exception ex) {
-					System.out.println("exception: " + ex);
+					// TODO Log this Exception
 				}
 			} else if (file.getContentType().equalsIgnoreCase("application/pdf")) {
 				try {
@@ -126,17 +131,14 @@ public class SupplyController {
 						}
 					}
 				} catch (Exception ex) {
-					System.out.println("exception: " + ex);
+					// TODO Log this Exception
 				}
 
 			}
 		
 		}
-		System.out.println("set");
-	System.out.println(set);
 		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/downloadFile/")
 				.path(fileName).toUriString();
-
 		return new UploadFileResponse(fileName, fileDownloadUri, set, file.getContentType(), file.getSize());
 	}
 

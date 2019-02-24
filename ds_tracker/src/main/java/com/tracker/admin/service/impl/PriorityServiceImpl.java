@@ -15,23 +15,17 @@ import com.tracker.admin.service.PriorityService;
 @Transactional
 public class PriorityServiceImpl implements PriorityService {
 	
-@Autowired
-PriorityRepo priorityRepo;
+	@Autowired
+	PriorityRepo priorityRepo;
 	
 	@Override
 	public Priority addPriority(Priority priority) {
-		// TODO Auto-generated method stub
 		return priorityRepo.save(priority);
 	}
 
 	@Override
 	public List<Priority> getAllPriority() {
-		// TODO Auto-generated method stub
 		return priorityRepo.findAll();
 	}
-
-
-
-	
 
 }

@@ -2,13 +2,13 @@ package com.tracker.admin.service;
 
 import java.util.List;
 
-import com.tracker.admin.model.Status;
+import com.tracker.admin.model.DemandStatus;
 
 public interface StatusService {
 
-	Status addStatus(Status status);
+	DemandStatus addStatus(DemandStatus status);
 
-	List<Status> getAllDemandStatus();
+	List<DemandStatus> getAllDemandStatus();
 
 
 	

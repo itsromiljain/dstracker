@@ -1,4 +1,4 @@
-package com.tracker.supply.service;
+package com.tracker.common;
 
 public class FileStorageException extends RuntimeException {
 	   public FileStorageException(String message) {

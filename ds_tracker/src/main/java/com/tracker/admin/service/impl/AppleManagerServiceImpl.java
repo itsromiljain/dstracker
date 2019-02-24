@@ -18,34 +18,24 @@ public class AppleManagerServiceImpl implements AppleManagerService {
 
 
 	@Autowired
-	private AppleManagerRepo appleL2ManagerRepository;
+	private AppleManagerRepo appleLManagerRepo;
 
 
-
-
-
-//get all apple L2 Manager
 	@Override
-	public List<AppleManager> getAllapplel2mgrName() {
-		return appleL2ManagerRepository.findAll();
+	public List<AppleManager> getAppleManagers() {
+		return appleLManagerRepo.findAll();
 	}
 
 	@Override
-	public AppleManager addAppleL2Manager(AppleManager appleL2Manager) {
+	public AppleManager addAppleManager(AppleManager appleL2Manager) {
 		// TODO Auto-generated method stub
-		return appleL2ManagerRepository.save(appleL2Manager);
+		return appleLManagerRepo.save(appleL2Manager);
 	}
 
 	@Override
-	public void deleteAppleL2Manager(long id) {
-		appleL2ManagerRepository.deleteById(id);
+	public void deleteAppleManager(long id) {
+		appleLManagerRepo.deleteById(id);
 		
 	}
-
-
-	
-
-		
-	
 
 }

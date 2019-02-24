@@ -17,6 +17,7 @@ public class PanelListServiceImpl implements  PanelListService {
 
 	@Autowired
 	PanelListRepo panelListRepo;
+
 	@Override
 	public PanelList addPanelList(PanelList panelList) {
 		return panelListRepo.save(panelList);

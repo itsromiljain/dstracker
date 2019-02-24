@@ -1,30 +1,23 @@
 package com.tracker.admin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name="PremiumRate")
+@Table(name="premiumRate")
 public class PremiumRate {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "premiumRateId")
 	private long premiumRateId;
+
+	@Column(name = "premiumRate")
 	private String premiumRate;
-	public long getPremiumRateId() {
-		return premiumRateId;
-	}
-	public void setPremiumRateId(long premiumRateId) {
-		this.premiumRateId = premiumRateId;
-	}
-	public String getPremiumRate() {
-		return premiumRate;
-	}
-	public void setPremiumRate(String premiumRate) {
-		this.premiumRate = premiumRate;
-	}
-	
 }

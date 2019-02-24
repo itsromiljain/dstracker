@@ -8,7 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tracker.admin.model.Status;
+import com.tracker.admin.model.DemandStatus;
 import com.tracker.admin.repo.StatusRepo;
 import com.tracker.admin.service.StatusService;
 
@@ -19,21 +19,13 @@ public class StatusServiceImpl implements StatusService {
 	StatusRepo statusRepo;
 
 	@Override
-	public Status addStatus(Status status) {
-		// TODO Auto-generated method stub
+	public DemandStatus addStatus(DemandStatus status) {
 		return statusRepo.save(status);
 	}
 
 	@Override
-	public List<Status> getAllDemandStatus() {
-		// TODO Auto-generated method stub
+	public List<DemandStatus> getAllDemandStatus() {
 		return statusRepo.findAll();
 	}
-
-
-	
-	
-
-	
 
 }

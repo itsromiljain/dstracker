@@ -30,7 +30,7 @@ public class AdminController {
 	@Autowired
 	StatusService statusService;
 	@Autowired
-	YrOfExpService yrOfExpService;
+    ExperienceService yrOfExpService;
 	@Autowired
 	SupplyStatusService supplyStatusService;
 	@Autowired
@@ -39,16 +39,14 @@ public class AdminController {
 	PremiumRateService premiumRateService;
 
 	// add new DemandType
-	@PostMapping("/addDemandType")
+	@PostMapping("/demandType")
 	public DemandType addDemandType(@RequestBody DemandType demandtype) {
-		DemandType demand_Type = demandTypeService.addDemandType(demandtype);
-		return demand_Type;
+		return demandTypeService.addDemandType(demandtype);
 	}
 
 	// get All DemandType
-	@GetMapping("/getAllDemandType")
+	@GetMapping("/demandType")
 	public ResponseEntity<List<DemandType>> getAllDemadType() {
-
 		List<DemandType> demandType = new LinkedList<DemandType>();
 		try {
 			demandType = demandTypeService.getAllDemadType();
@@ -59,13 +57,12 @@ public class AdminController {
 	}
 
 	// get All apple manager
-	@GetMapping("/getAllapplel2mgr")
+	@GetMapping("/appleManagerr")
 	public ResponseEntity<List<AppleManager>> getallAppleL2Manager() {
-
-		List<AppleManager> AppleL2Manager = new LinkedList<AppleManager>();
+		List<AppleManager> appleManagers = new LinkedList<AppleManager>();
 		try {
-			AppleL2Manager = imtdmnameService.getAllapplel2mgrName();
-			return ResponseEntity.ok().body(AppleL2Manager);
+            appleManagers = imtdmnameService.getAppleManagers();
+			return ResponseEntity.ok().body(appleManagers);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -73,22 +70,20 @@ public class AdminController {
 	}
 
 	// Add apple manager
-	@PostMapping("/addAppleL2Manager")
+	@PostMapping("/appleManager")
 	public ResponseEntity<AppleManager> addAppleL2Manager(@RequestBody AppleManager appleL2Manager) {
-		System.out.println("appleL2Manager.getApplel2mngr_name()");
-		System.out.println(appleL2Manager.getApplel2mngr_name());
-		AppleManager al2Manager = imtdmnameService.addAppleL2Manager(appleL2Manager);
+		AppleManager appleManager = imtdmnameService.addAppleManager(appleL2Manager);
 		try {
-			return ResponseEntity.status(201).body(al2Manager);
+			return ResponseEntity.status(201).body(appleManager);
 		} catch (Exception e) {
 			return ResponseEntity.status(404).build();
 		}
 	}
 
 	// delete apple manager
-	@PostMapping("/deleteAppleL2Manager/{id}")
+	@DeleteMapping("/appleManager/{id}")
 	public ResponseEntity<String> deleteAppleL2Manager(@PathVariable(value = "id") long id) {
-		imtdmnameService.deleteAppleL2Manager(id);
+		imtdmnameService.deleteAppleManager(id);
 		try {
 			return ResponseEntity.status(201).body("deleted successfully");
 		} catch (Exception e) {
@@ -97,7 +92,7 @@ public class AdminController {
 	}
 
 	// Add new Lead
-	@PostMapping("/addLead")
+	@PostMapping("/lead")
 	public ResponseEntity<Lead> addLead(@RequestBody Lead lead) {
 		Lead lead1 = leadService.addLead(lead);
 		try {
@@ -108,7 +103,7 @@ public class AdminController {
 	}
 
 	// Get All Lead
-	@GetMapping("/getAllLead")
+	@GetMapping("/lead")
 	public ResponseEntity<List<Lead>> getAllLead() {
 		List<Lead> Lead = new LinkedList<Lead>();
 		try {
@@ -121,14 +116,13 @@ public class AdminController {
 	}
 
 	// add new location
-	@PostMapping("/addLocation")
+	@PostMapping("/location")
 	public Location location(@RequestBody Location location) {
-		Location loc = locationService.addLocation(location);
-		return loc;
+		return locationService.addLocation(location);
 	}
 
 	// Get All Location
-	@GetMapping("/getAllLocation")
+	@GetMapping("/location")
 	public ResponseEntity<List<Location>> getAllLocation() {
 
 		List<Location> Location = new LinkedList<Location>();
@@ -142,14 +136,13 @@ public class AdminController {
 	}
 
 	// add new Panel List
-	@PostMapping("/addPanelList")
+	@PostMapping("/panelList")
 	public PanelList panelList(@RequestBody PanelList panelList) {
-		PanelList PL = panelListService.addPanelList(panelList);
-		return PL;
+		return panelListService.addPanelList(panelList);
 	}
 
 	// get All Panel List
-	@GetMapping("/getAllPanelList")
+	@GetMapping("/panelList")
 	public ResponseEntity<List<PanelList>> getAllPanelList() {
 		List<PanelList> PanelList = new LinkedList<PanelList>();
 		try {
@@ -162,14 +155,13 @@ public class AdminController {
 	}
 
 	// add new Priority
-	@PostMapping("/addPriority")
+	@PostMapping("/priority")
 	public Priority addPriority(@RequestBody Priority priority) {
-		Priority prio = priorityService.addPriority(priority);
-		return prio;
+		return priorityService.addPriority(priority);
 	}
 
 	// get All Priority
-	@GetMapping("/getAllPriority")
+	@GetMapping("/priority")
 	public ResponseEntity<List<Priority>> getAllPriority() {
 
 		List<Priority> Priority = new LinkedList<Priority>();
@@ -183,14 +175,13 @@ public class AdminController {
 	}
 
 	// add new Skill
-	@PostMapping("/addSkill")
+	@PostMapping("/skill")
 	public Skill addSkill(@RequestBody Skill skill) {
-		Skill skill_Type = skillService.addSkill(skill);
-		return skill_Type;
+		return skillService.addSkill(skill);
 	}
 
 	// get All Skill
-	@GetMapping("/getAllSkill")
+	@GetMapping("/skill")
 	public ResponseEntity<List<Skill>> getAllSkill() {
 
 		List<Skill> Skill = new LinkedList<Skill>();
@@ -204,17 +195,16 @@ public class AdminController {
 	}
 
 	// add new DemandStatus
-	@PostMapping("/addDemandStatus")
-	public Status addStatus(@RequestBody Status status) {
-		Status sta = statusService.addStatus(status);
-		return sta;
+	@PostMapping("/demandStatus")
+	public DemandStatus addStatus(@RequestBody DemandStatus status) {
+		return statusService.addStatus(status);
 	}
 
 	// get All DemandStatus
-	@GetMapping("/getAllDemandStatus")
-	public ResponseEntity<List<Status>> getAllDemandStatus() {
+	@GetMapping("/demandStatus")
+	public ResponseEntity<List<DemandStatus>> getAllDemandStatus() {
 
-		List<Status> Status = new LinkedList<Status>();
+		List<DemandStatus> Status = new LinkedList<DemandStatus>();
 		try {
 			Status = statusService.getAllDemandStatus();
 			return ResponseEntity.ok().body(Status);
@@ -224,19 +214,19 @@ public class AdminController {
 
 	}
 
-	// add new YrOfExp
-	@PostMapping("/addYrOfExp")
-	public YrOfExp addYrOfExp(@RequestBody YrOfExp yrOfExp) {
-		return yrOfExpService.addYrOfExp(yrOfExp);
+	// add new Experience
+	@PostMapping("/experience")
+	public Experience addYrOfExp(@RequestBody Experience experience) {
+		return yrOfExpService.addYrOfExp(experience);
 	}
 
-	// get All YrOfExp
-	@GetMapping("/getAllyrOfExp")
-	public ResponseEntity<List<YrOfExp>> getAllyrOfExp() {
-		List<YrOfExp> YrOfExp = new LinkedList<YrOfExp>();
+	// get All Experience
+	@GetMapping("/experience")
+	public ResponseEntity<List<Experience>> getAllyrOfExp() {
+		List<Experience> Experience = new LinkedList<Experience>();
 		try {
-			YrOfExp = yrOfExpService.getAllyrOfExp();
-			return ResponseEntity.ok().body(YrOfExp);
+			Experience = yrOfExpService.getAllyrOfExp();
+			return ResponseEntity.ok().body(Experience);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -244,13 +234,13 @@ public class AdminController {
 	}
 
 	// add new SupplyStatus
-	@PostMapping("/addSupplyStatus")
+	@PostMapping("/supplyStatus")
 	public SupplyStatus status(@RequestBody SupplyStatus supplyStatus) {
 		return supplyStatusService.addStatus(supplyStatus);
 	}
 
 	// get All SupplyStatus
-	@GetMapping("/getAllSupplyStatus")
+	@GetMapping("/supplyStatus")
 	public ResponseEntity<List<SupplyStatus>> getAllSupplyStatus() {
 
 		List<SupplyStatus> SupplyStatus = new LinkedList<SupplyStatus>();
@@ -263,14 +253,14 @@ public class AdminController {
 	}
 
 	// add new SubmittedBy
-	@PostMapping("/addSubmittedBy")
+	@PostMapping("/submittedBy")
 	public SubmittedBy addSubmittedBy(@RequestBody SubmittedBy submittedBy) {
 		SubmittedBy SB = submittedByService.addSubmittedBy(submittedBy);
 		return SB;
 	}
 
 	// get All SubmittedBy
-	@GetMapping("/getAllSubmittedBy")
+	@GetMapping("/submittedBy")
 	public ResponseEntity<List<SubmittedBy>> getAllSubmittedBy() {
 		List<SubmittedBy> SubmittedBy = new LinkedList<SubmittedBy>();
 		try {
@@ -282,15 +272,14 @@ public class AdminController {
 	}
 
 	// add new PremiumRate
-	@PostMapping("/addPremiumRate")
+	@PostMapping("/premiumRate")
 	public PremiumRate addPremiumRate(@RequestBody PremiumRate premiumRate) {
-		PremiumRate PR = premiumRateService.addPremiumRate(premiumRate);
-		return PR;
+		return premiumRateService.addPremiumRate(premiumRate);
 
 	}
 
 	// get All PremiumRate
-	@GetMapping("/getAllPremiumRate")
+	@GetMapping("/premiumRate")
 	public ResponseEntity<List<PremiumRate>> getAllPremiumRate() {
 		List<PremiumRate> PremiumRate = new LinkedList<PremiumRate>();
 		try {

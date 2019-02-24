@@ -17,14 +17,13 @@ public class DemandTypeServiceImpl implements DemandTypeService{
 
 	@Autowired
 	DemandTypeRepo demandTypeRepo;
+
 	@Override
 	public DemandType addDemandType(DemandType demandType) {
-		// TODO Auto-generated method stub
 		return demandTypeRepo.save(demandType);
 	}
 	@Override
 	public List<DemandType> getAllDemadType() {
-		// TODO Auto-generated method stub
 		return demandTypeRepo.findAll();
 	}
 

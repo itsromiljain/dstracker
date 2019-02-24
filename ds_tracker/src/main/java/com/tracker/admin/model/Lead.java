@@ -1,35 +1,22 @@
 package com.tracker.admin.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@ToString
 @Entity
-@Table(name = "leadVal")
+@Table(name = "lead")
 public class Lead {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String lead_val;
+	@Column(name = "leadId")
+	private long leadId;
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getLead_val() {
-		return lead_val;
-	}
-
-	public void setLead_val(String lead_val) {
-		this.lead_val = lead_val;
-	}
-
-
-
+	@Column(name = "leadValue")
+	private String leadValue;
 }

@@ -6,12 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
-import com.tracker.demand.model.ProjTrakr;
-
-
+import com.tracker.demand.model.ProjectTracker;
 
 @Repository
-public interface TrackerRepository extends JpaRepository<ProjTrakr, Long> {
+public interface ProjectTrackerRepository extends JpaRepository<ProjectTracker, Long> {
 
 }
 

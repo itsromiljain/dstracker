@@ -2,10 +2,10 @@ package com.tracker.admin.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.tracker.admin.model.PremiumRate;
+import com.tracker.admin.model.Experience;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PremiumRateRepo extends JpaRepository<PremiumRate, Long> {
+public interface ExperienceRepo extends JpaRepository<Experience, Long>{
 
 }

@@ -20,13 +20,11 @@ public class LeadServiceImpl implements LeadService{
 	
 	@Override
 	public Lead addLead(Lead lead) {
-		// TODO Auto-generated method stub
 		return leadrepo.save(lead);
 	}
 
 	@Override
 	public List<Lead> getAllLead() {
-		// TODO Auto-generated method stub
 		return leadrepo.findAll();
 	}
 

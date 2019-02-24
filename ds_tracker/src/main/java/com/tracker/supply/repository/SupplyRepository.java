@@ -2,12 +2,13 @@ package com.tracker.supply.repository;
 
 
 
+import com.tracker.supply.model.SupplyDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
-import com.tracker.supply.model.SupplyDtls;
+
 @Repository
-public interface SupplyRepository extends JpaRepository<SupplyDtls,Long> {
+public interface SupplyRepository extends JpaRepository<SupplyDetail, Long> {
 		
 }
 

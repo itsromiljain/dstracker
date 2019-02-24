@@ -1,5 +1,7 @@
 package com.tracker.admin.model;
 
+
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,15 +12,14 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table (name = "skill")
-public class Skill {
-	
+@Table(name="demandStatus")
+public class DemandStatus {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "skillId")
-	private long skillId;
+	@Column(name = "statusId")
+	public long statusId;
 
-	@Column(name = "skill")
-	private String skill;
+	@Column(name = "statusType")
+	public String statusType;
 }

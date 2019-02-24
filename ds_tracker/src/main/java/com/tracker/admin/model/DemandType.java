@@ -1,38 +1,26 @@
 package com.tracker.admin.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
 @Entity
-@Table
+@Table(name="demandType")
 public class DemandType  implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public long demand_type_id;
+	@Column(name = "demandTypeId")
+	public long demandTypeId;
+
+	@Column(name = "demandType")
 	public String demandType;
-
-	
-	public long getDemand_type_id() {
-		return demand_type_id;
-	}
-	public void setDemand_type_id(long demand_type_id) {
-		this.demand_type_id = demand_type_id;
-	}
-	public String getDemandType() {
-		return demandType;
-	}
-	public void setDemandType(String demandType) {
-		this.demandType = demandType;
-	}
-	
-
 }

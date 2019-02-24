@@ -2,13 +2,11 @@ package com.tracker.demand.repository;
 
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.tracker.demand.model.ProjectTracker;
 import org.springframework.stereotype.Repository;
-
-import com.tracker.demand.model.ProjTrakr;
 
 @Repository
 public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
@@ -18,7 +16,7 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 	
 //	@SuppressWarnings("unchecked")
 //	@Override
-//	public List<ProjTrakr> getProjectsRepo(long id) {
+//	public List<ProjectTracker> getProjectsRepo(long id) {
 //		StringBuilder sb = new StringBuilder();
 //		sb.append("select proj_id,appl_mngr,clnt_apprctn,proj_desc,indctn_kit,dmngr_dtls,imt_dtls,");
 //		sb.append("stats_issue,escalation,fnl_delivery,lti_mngd,");
@@ -29,7 +27,7 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 //		if (id != 0l)
 //			sb.append(" where proj_id='" + id + "'");
 //
-//		return entityManager.createNativeQuery(sb.toString(), ProjTrakr.class).getResultList();
+//		return entityManager.createNativeQuery(sb.toString(), ProjectTracker.class).getResultList();
 //	}
 	 
 
@@ -37,10 +35,10 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProjTrakr> getProjectsRepo(long id){
+	public List<ProjectTracker> getProjectsRepo(long id){
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * from Projtrakr");
-		return  entityManager.createNativeQuery(sb.toString(), ProjTrakr.class).getResultList();
+		return  entityManager.createNativeQuery(sb.toString(), ProjectTracker.class).getResultList();
 		
 	}
 

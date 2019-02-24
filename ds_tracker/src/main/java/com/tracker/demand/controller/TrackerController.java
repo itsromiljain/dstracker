@@ -1,7 +1,7 @@
 package com.tracker.demand.controller;
 
 import com.tracker.common.ResourceNotFoundException;
-import com.tracker.demand.model.ProjTrakr;
+import com.tracker.demand.model.ProjectTracker;
 import com.tracker.demand.service.TrackerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +23,10 @@ public class TrackerController {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@GetMapping("/tracker/")
-	public ResponseEntity<List<ProjTrakr>> getAllProjects() {
-
-		List<ProjTrakr> projects = new LinkedList<ProjTrakr>();
+	@GetMapping("/tracker")
+	public ResponseEntity<List<ProjectTracker>> getAllProjects() {
 		try {
-			projects = trackerService.getAllProj(0l);
+			List<ProjectTracker> projects = trackerService.getAllProjects();
 			return ResponseEntity.ok().body(projects);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
@@ -36,13 +34,11 @@ public class TrackerController {
 	}
 
 	@GetMapping("/tracker/{id}")
-	public ResponseEntity<ProjTrakr> getaProject(@PathVariable("id") long id) {
-		ProjTrakr project;
-
+	public ResponseEntity<ProjectTracker> getProject(@PathVariable("id") long id) {
 		try {
 			List<Object> suggestedSupply = new ArrayList<Object>();
 
-			project = (ProjTrakr) trackerService.getAllProj(id).get(0);
+			ProjectTracker project = (ProjectTracker) trackerService.getProjectById(id);
 			String skill = project.getSkill();
 
 			List<String> elephantList = Arrays.asList(skill.split(","));			
@@ -87,8 +83,8 @@ public class TrackerController {
 	}
 
 	@PostMapping("/tracker")
-	public ResponseEntity<ProjTrakr> registerProject(@RequestBody ProjTrakr nwproject) {
-		ProjTrakr projTrakr = trackerService.addProj(nwproject);
+	public ResponseEntity<ProjectTracker> addProject(@RequestBody ProjectTracker newproject) {
+		ProjectTracker projTrakr = trackerService.addProject(newproject);
 		try {
 			return ResponseEntity.status(201).body(projTrakr);
 		} catch (Exception e) {
@@ -97,9 +93,9 @@ public class TrackerController {
 	}
 
 	@PutMapping("/tracker/{id}")
-	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody ProjTrakr exstProject) {
+	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody ProjectTracker existingProject) {
 		try {
-			trackerService.UpdateProj(exstProject);
+			trackerService.updateProject(existingProject);
 			return ResponseEntity.noContent().build();
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
@@ -109,7 +105,7 @@ public class TrackerController {
 	@DeleteMapping("/tracker/{id}")
 	public ResponseEntity<Void> deleteProject(@PathVariable long id) {
 		try {
-			trackerService.deleteProj(id);
+			trackerService.deleteProject(id);
 			return ResponseEntity.noContent().build();
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();

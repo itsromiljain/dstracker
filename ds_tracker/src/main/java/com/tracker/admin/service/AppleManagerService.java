@@ -6,13 +6,11 @@ import com.tracker.admin.model.AppleManager;
 
 public interface AppleManagerService {
 
+	public List<AppleManager> getAppleManagers();
 	
-	//get all apple l2 Manager	
-	public List<AppleManager> getAllapplel2mgrName();
-	
-	public AppleManager addAppleL2Manager(AppleManager appleL2Manager);
+	public AppleManager addAppleManager(AppleManager appleManager);
 
-	public void deleteAppleL2Manager(long id);
+	public void deleteAppleManager(long id);
 
 
 }

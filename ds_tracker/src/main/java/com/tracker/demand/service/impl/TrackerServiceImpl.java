@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.tracker.demand.model.ProjectTracker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tracker.demand.model.ProjTrakr;
-import com.tracker.demand.repository.TrackerRepository;
+import com.tracker.demand.repository.ProjectTrackerRepository;
 import com.tracker.demand.service.TrackerService;
 
 
@@ -17,28 +17,32 @@ import com.tracker.demand.service.TrackerService;
 public class TrackerServiceImpl implements TrackerService  {
 	
 	@Autowired
-	private TrackerRepository trackerRepository;
+	private ProjectTrackerRepository projectTrackerRepository;
 
 	@Override
-	public List<ProjTrakr> getAllProj(long id) {
-		return trackerRepository.findAll();
-		//return trackerRepository.getProjectsRepo(id);
-		
+	public ProjectTracker getProjectById(long id) {
+		return projectTrackerRepository.findById(id).get();
+
 	}
 
 	@Override
-	public ProjTrakr addProj(ProjTrakr s) {
-		return trackerRepository.save(s);
+	public List<ProjectTracker> getAllProjects() {
+		return projectTrackerRepository.findAll();
 	}
 
 	@Override
-	public void UpdateProj(ProjTrakr s) {
-		 trackerRepository.save(s);
+	public ProjectTracker addProject(ProjectTracker tracker) {
+		return projectTrackerRepository.save(tracker);
 	}
 
 	@Override
-	public void deleteProj(long id) {
-		 trackerRepository.deleteById(id);
+	public void updateProject(ProjectTracker tracker) {
+		projectTrackerRepository.save(tracker);
+	}
+
+	@Override
+	public void deleteProject(long id) {
+		projectTrackerRepository.deleteById(id);
 	}
 
 }

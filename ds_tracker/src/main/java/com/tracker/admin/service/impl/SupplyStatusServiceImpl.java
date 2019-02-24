@@ -14,6 +14,7 @@ import com.tracker.admin.service.SupplyStatusService;
 @Service
 @Transactional
 public class SupplyStatusServiceImpl implements SupplyStatusService {
+
 	@Autowired
 	SupplyStatusRepo supplyStatusRepo;
 
@@ -24,7 +25,6 @@ public class SupplyStatusServiceImpl implements SupplyStatusService {
 
 	@Override
 	public List<SupplyStatus> getAllSupplyStatus() {
-		// TODO Auto-generated method stub
 		return supplyStatusRepo.findAll();
 	}
 
