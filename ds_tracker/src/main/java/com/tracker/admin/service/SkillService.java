@@ -6,14 +6,9 @@ import com.tracker.admin.model.Skill;
 
 public interface SkillService {
 
-
 	Skill addSkill(Skill skill);
 
 	List<Skill> getAllSkill();
 
-	 
-
-
-
-
+	List<String> getAllSkillNames();
 }

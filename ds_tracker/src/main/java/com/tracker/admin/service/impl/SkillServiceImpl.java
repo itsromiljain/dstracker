@@ -28,4 +28,9 @@ public class SkillServiceImpl implements SkillService {
 		return skillRepo.findAll();
 	}
 
+	@Override
+	public List<String> getAllSkillNames() {
+		return skillRepo.getAllSkillNames();
+	}
+
 }

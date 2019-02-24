@@ -19,14 +19,14 @@ import javax.persistence.Table;
 @Setter
 @ToString
 @Entity
-@Table(name = "projectTracker")
-public class ProjectTracker implements Serializable {
+@Table(name = "demandDetail")
+public class DemandDetail implements Serializable {
 
 	private static final long serialVersionUID = 7554629997735886894L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "demandId")
-	private long id;
+	private long demandId;
 	@Column(name = "rfr")
 	private String rfr;
 	@Column(name = "oppty")
@@ -43,8 +43,8 @@ public class ProjectTracker implements Serializable {
 	private String desc;
 	@Column(name = "demandType")
 	private String demandType;
-	@Column(name = "yrOfExp")
-	private String yrOfExp;
+	@Column(name = "experience")
+	private String experience;
 	@Column(name = "priority")
 	private String priority;
 	@Column(name = "role")

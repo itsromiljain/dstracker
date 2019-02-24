@@ -1,8 +1,9 @@
 package com.tracker.demand.controller;
 
 import com.tracker.common.ResourceNotFoundException;
-import com.tracker.demand.model.ProjectTracker;
-import com.tracker.demand.service.TrackerService;
+import com.tracker.demand.model.DemandDetail;
+import com.tracker.demand.service.DemandService;
+import com.tracker.supply.service.SupplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +17,20 @@ import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
-public class TrackerController {
+public class DemandTrackerController {
 	@Autowired
-	private TrackerService trackerService;
+	private DemandService trackerService;
 
-	@PersistenceContext
-	private EntityManager entityManager;
+	@Autowired
+	private SupplyService supplyService;
+
+	//@PersistenceContext
+	//private EntityManager entityManager;
 
 	@GetMapping("/tracker")
-	public ResponseEntity<List<ProjectTracker>> getAllProjects() {
+	public ResponseEntity<List<DemandDetail>> getAllProjects() {
 		try {
-			List<ProjectTracker> projects = trackerService.getAllProjects();
+			List<DemandDetail> projects = trackerService.getAllProjects();
 			return ResponseEntity.ok().body(projects);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
@@ -34,42 +38,34 @@ public class TrackerController {
 	}
 
 	@GetMapping("/tracker/{id}")
-	public ResponseEntity<ProjectTracker> getProject(@PathVariable("id") long id) {
+	public ResponseEntity<DemandDetail> getProject(@PathVariable("id") long id) {
 		try {
 			List<Object> suggestedSupply = new ArrayList<Object>();
 
-			ProjectTracker project = (ProjectTracker) trackerService.getProjectById(id);
+			DemandDetail project = (DemandDetail) trackerService.getProjectById(id);
 			String skill = project.getSkill();
 
 			List<String> elephantList = Arrays.asList(skill.split(","));			
 
-			StringBuilder sb3 = new StringBuilder();
-			sb3.append("Select supplyid,skill,supplyname from supplydtls");
-			List<Object[]> results = entityManager.createNativeQuery(sb3.toString()).getResultList();
+			//StringBuilder sb3 = new StringBuilder();
+			//sb3.append("Select supply_id,skill,supply_name from supply_detail");
+			//List<Object[]> results = entityManager.createNativeQuery(sb3.toString()).getResultList();
+			List<Object[]> results = supplyService.getSupplyDetails();
 
 			results.stream().forEach((record) -> {
 				Map<Object, Object> ocurenceMap = new HashMap<Object, Object>();
 				BigInteger sid = (BigInteger) record[0];
-
-				String skilltest = (String) record[1];
-
-				List<String> supplyList = Arrays.asList(skilltest.split(","));
-				
-				String supplyname = (String) record[2];
-
+				String skillTest = (String) record[1];
+				List<String> skillList = Arrays.asList(skillTest.split(","));
+				String supplyName = (String) record[2];
 				String pattern = elephantList.stream().map(Pattern::quote)
 						.collect(Collectors.joining("|", ".*(", ").*"));
-
 				Pattern re = Pattern.compile(pattern);
-
-				boolean x = supplyList.stream().anyMatch(t -> re.matcher(t).matches());
-
-				if (x == true) {
-
+				if (skillList.stream().anyMatch(t -> re.matcher(t).matches())) {
 					ocurenceMap.put("supplyId", sid);
-					ocurenceMap.put("skilltest", skilltest);
+					ocurenceMap.put("skillTest", skillTest);
 
-					ocurenceMap.put("supplyname", supplyname);
+					ocurenceMap.put("supplyName", supplyName);
 					suggestedSupply.add(ocurenceMap);
 				}
 			});
@@ -83,8 +79,8 @@ public class TrackerController {
 	}
 
 	@PostMapping("/tracker")
-	public ResponseEntity<ProjectTracker> addProject(@RequestBody ProjectTracker newproject) {
-		ProjectTracker projTrakr = trackerService.addProject(newproject);
+	public ResponseEntity<DemandDetail> addProject(@RequestBody DemandDetail newproject) {
+		DemandDetail projTrakr = trackerService.addProject(newproject);
 		try {
 			return ResponseEntity.status(201).body(projTrakr);
 		} catch (Exception e) {
@@ -93,7 +89,7 @@ public class TrackerController {
 	}
 
 	@PutMapping("/tracker/{id}")
-	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody ProjectTracker existingProject) {
+	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody DemandDetail existingProject) {
 		try {
 			trackerService.updateProject(existingProject);
 			return ResponseEntity.noContent().build();

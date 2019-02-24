@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tracker.demand.model.ProjectTracker;
+import com.tracker.demand.model.DemandDetail;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,7 +16,7 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 	
 //	@SuppressWarnings("unchecked")
 //	@Override
-//	public List<ProjectTracker> getProjectsRepo(long id) {
+//	public List<DemandDetail> getProjectsRepo(long id) {
 //		StringBuilder sb = new StringBuilder();
 //		sb.append("select proj_id,appl_mngr,clnt_apprctn,proj_desc,indctn_kit,dmngr_dtls,imt_dtls,");
 //		sb.append("stats_issue,escalation,fnl_delivery,lti_mngd,");
@@ -27,7 +27,7 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 //		if (id != 0l)
 //			sb.append(" where proj_id='" + id + "'");
 //
-//		return entityManager.createNativeQuery(sb.toString(), ProjectTracker.class).getResultList();
+//		return entityManager.createNativeQuery(sb.toString(), DemandDetail.class).getResultList();
 //	}
 	 
 
@@ -35,10 +35,10 @@ public class ExtendedTrackerRepoImpl implements ExtendedTrackerRepo {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProjectTracker> getProjectsRepo(long id){
+	public List<DemandDetail> getProjectsRepo(long id){
 		StringBuilder sb = new StringBuilder();
 		sb.append("select * from Projtrakr");
-		return  entityManager.createNativeQuery(sb.toString(), ProjectTracker.class).getResultList();
+		return  entityManager.createNativeQuery(sb.toString(), DemandDetail.class).getResultList();
 		
 	}
 

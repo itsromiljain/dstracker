@@ -11,6 +11,13 @@ buildscript {
     }
 }
 
+configurations {
+    developmentOnly
+    runtimeClassPath {
+        extendsFrom developmentOnly
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
@@ -40,12 +47,29 @@ repositories {
 
 
 dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-    compile 'mysql:mysql-connector-java'
-    compile 'log4j:log4j'
-    compile 'org.apache.pdfbox:pdfbox:2.0.13'
-    compileOnly('org.projectlombok:lombok')
+    // Spring Boot
+    compile("org.springframework.boot:spring-boot-starter")
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    //Lombok
+    compile("org.projectlombok:lombok")
+
+    //DevTools
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    // Health Check
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    // JPA
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("mysql:mysql-connector-java")
+
+    // Logging
+    compile("log4j:log4j")
+
+    // PDF Reader
+    compile("org.apache.pdfbox:pdfbox:2.0.13")
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

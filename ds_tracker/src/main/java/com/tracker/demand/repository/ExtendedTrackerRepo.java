@@ -2,10 +2,10 @@ package com.tracker.demand.repository;
 
 import java.util.List;
 
-import com.tracker.demand.model.ProjectTracker;
+import com.tracker.demand.model.DemandDetail;
 
 
 public interface ExtendedTrackerRepo{
-	public List<ProjectTracker> getProjectsRepo(long id);
-	//public List<ProjectTracker> getDemandsRepo(long id);
+	public List<DemandDetail> getProjectsRepo(long id);
+	//public List<DemandDetail> getDemandsRepo(long id);
 }

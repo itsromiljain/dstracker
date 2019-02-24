@@ -1,5 +1,6 @@
 package com.tracker.supply.controller;
 
+import com.tracker.admin.service.SkillService;
 import com.tracker.common.ResourceNotFoundException;
 import com.tracker.supply.model.SupplyDetail;
 import com.tracker.supply.model.UploadFileResponse;
@@ -23,12 +24,15 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-public class SupplyController {
+public class SupplyTrackerController {
 	@Autowired
 	private SupplyService supplyService;
+
+	@Autowired
+	private SkillService skillService;
 	
-	@PersistenceContext
-	private EntityManager entityManager;
+	//@PersistenceContext
+	//private EntityManager entityManager;
 
 	@GetMapping("/supply")
 	public ResponseEntity<List<SupplyDetail>> getAllSupply() {
@@ -96,12 +100,13 @@ public class SupplyController {
 		fos = new FileOutputStream(convFile);
 		fos.write(file.getBytes());
 		fos.close();
-	
-		StringBuilder sb = new StringBuilder();
-		sb.append("Select skill from skill");
-		List<String> skil = entityManager.createNativeQuery(sb.toString()).getResultList();
+
+		//StringBuilder sb = new StringBuilder();
+		//sb.append("Select skill from skill");
+		//List<String> skils = entityManager.createNativeQuery(sb.toString()).getResultList();
+		List<String> skils = skillService.getAllSkillNames();
 		HashSet<String> set = new HashSet<String>();
-		for (String strTemp : skil) {
+		for (String strTemp : skils) {
 
 			if (file.getContentType().equalsIgnoreCase("application/msword")) {
 				try {
