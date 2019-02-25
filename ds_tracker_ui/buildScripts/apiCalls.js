@@ -18,7 +18,7 @@ const getAllProjects = () => {
 const getAllsupply = () => {
   try {
     return new Promise((resolve, reject) => {
-      axios.get('http://localhost:7020/getAllsupply/')
+      axios.get('http://localhost:7020/supply/')
       .then((response) => {
         return resolve(response)
       })
@@ -138,7 +138,7 @@ const getAllsupply = () => {
 const getAppleL2Manager = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllapplel2mgr/')
+      axios.get('http://localhost:7020/appleManager/')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -158,7 +158,7 @@ const getAppleL2Manager = () => {
 const getLocation = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllLocation')
+      axios.get('http://localhost:7020/location')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -178,7 +178,7 @@ const getLocation = () => {
 const getDemandType = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllDemandType')
+      axios.get('http://localhost:7020/demandType')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -198,7 +198,7 @@ const getDemandType = () => {
 const getLead = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllLead')
+      axios.get('http://localhost:7020/lead')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -218,7 +218,7 @@ const getLead = () => {
 const getPriority = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllPriority')
+      axios.get('http://localhost:7020/priority')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -238,7 +238,7 @@ const getPriority = () => {
 const getDemandStatus = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllDemandStatus')
+      axios.get('http://localhost:7020/demandStatus')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -258,7 +258,7 @@ const getDemandStatus = () => {
 const getSupplyStatus = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllSupplyStatus')
+      axios.get('http://localhost:7020/supplyStatus')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -278,7 +278,7 @@ const getSupplyStatus = () => {
 const getYrOfExp = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllyrOfExp')
+      axios.get('http://localhost:7020/experience')
       .then((response) => {
         console.log(response.data)
         return resolve(response)
@@ -298,7 +298,7 @@ const getYrOfExp = () => {
 const getSubmittedBy = () => {
   try {
     return new Promise((resolve, reject) =>{
-      axios.get('http://localhost:7020/getAllSubmittedBy')
+      axios.get('http://localhost:7020/submittedBy')
       .then((response) => {
         console.log(response.data)
         return resolve(response)

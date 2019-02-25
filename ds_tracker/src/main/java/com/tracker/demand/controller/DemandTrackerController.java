@@ -24,9 +24,6 @@ public class DemandTrackerController {
 	@Autowired
 	private SupplyService supplyService;
 
-	//@PersistenceContext
-	//private EntityManager entityManager;
-
 	@GetMapping("/tracker")
 	public ResponseEntity<List<DemandDetail>> getAllProjects() {
 		try {
@@ -42,18 +39,14 @@ public class DemandTrackerController {
 		try {
 			List<Object> suggestedSupply = new ArrayList<Object>();
 
-			DemandDetail project = (DemandDetail) trackerService.getProjectById(id);
+			DemandDetail project = trackerService.getProjectById(id);
 			String skill = project.getSkill();
 
-			List<String> elephantList = Arrays.asList(skill.split(","));			
-
-			//StringBuilder sb3 = new StringBuilder();
-			//sb3.append("Select supply_id,skill,supply_name from supply_detail");
-			//List<Object[]> results = entityManager.createNativeQuery(sb3.toString()).getResultList();
+			List<String> elephantList = Arrays.asList(skill.split(","));
 			List<Object[]> results = supplyService.getSupplyDetails();
 
 			results.stream().forEach((record) -> {
-				Map<Object, Object> ocurenceMap = new HashMap<Object, Object>();
+				Map<Object, Object> occurenceMap = new HashMap<Object, Object>();
 				BigInteger sid = (BigInteger) record[0];
 				String skillTest = (String) record[1];
 				List<String> skillList = Arrays.asList(skillTest.split(","));
@@ -62,11 +55,11 @@ public class DemandTrackerController {
 						.collect(Collectors.joining("|", ".*(", ").*"));
 				Pattern re = Pattern.compile(pattern);
 				if (skillList.stream().anyMatch(t -> re.matcher(t).matches())) {
-					ocurenceMap.put("supplyId", sid);
-					ocurenceMap.put("skillTest", skillTest);
+					occurenceMap.put("supplyId", sid);
+					occurenceMap.put("skillTest", skillTest);
 
-					ocurenceMap.put("supplyName", supplyName);
-					suggestedSupply.add(ocurenceMap);
+					occurenceMap.put("supplyName", supplyName);
+					suggestedSupply.add(occurenceMap);
 				}
 			});
 

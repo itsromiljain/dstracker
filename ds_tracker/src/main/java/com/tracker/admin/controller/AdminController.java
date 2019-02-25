@@ -57,7 +57,7 @@ public class AdminController {
 	}
 
 	// get All apple manager
-	@GetMapping("/appleManagerr")
+	@GetMapping("/appleManager")
 	public ResponseEntity<List<AppleManager>> getallAppleL2Manager() {
 		List<AppleManager> appleManagers = new LinkedList<AppleManager>();
 		try {

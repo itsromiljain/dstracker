@@ -30,9 +30,6 @@ public class SupplyTrackerController {
 
 	@Autowired
 	private SkillService skillService;
-	
-	//@PersistenceContext
-	//private EntityManager entityManager;
 
 	@GetMapping("/supply")
 	public ResponseEntity<List<SupplyDetail>> getAllSupply() {
@@ -57,9 +54,9 @@ public class SupplyTrackerController {
 	}
 
 	@PostMapping("/supply")
-	public ResponseEntity<SupplyDetail> addSupply(@RequestBody SupplyDetail nwsupplyDtls) {
+	public ResponseEntity<SupplyDetail> addSupply(@RequestBody SupplyDetail newSupplyDtls) {
 
-		SupplyDetail supplyDtls = supplyService.addSupply(nwsupplyDtls);
+		SupplyDetail supplyDtls = supplyService.addSupply(newSupplyDtls);
 		try {
 			return ResponseEntity.status(201).body(supplyDtls);
 		} catch (Exception e) {
@@ -101,9 +98,6 @@ public class SupplyTrackerController {
 		fos.write(file.getBytes());
 		fos.close();
 
-		//StringBuilder sb = new StringBuilder();
-		//sb.append("Select skill from skill");
-		//List<String> skils = entityManager.createNativeQuery(sb.toString()).getResultList();
 		List<String> skils = skillService.getAllSkillNames();
 		HashSet<String> set = new HashSet<String>();
 		for (String strTemp : skils) {
