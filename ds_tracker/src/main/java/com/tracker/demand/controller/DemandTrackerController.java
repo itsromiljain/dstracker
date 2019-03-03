@@ -3,101 +3,111 @@ package com.tracker.demand.controller;
 import com.tracker.common.ResourceNotFoundException;
 import com.tracker.demand.model.DemandDetail;
 import com.tracker.demand.service.DemandService;
+import com.tracker.supply.model.SupplyDetail;
 import com.tracker.supply.service.SupplyService;
+import com.tracker.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
 public class DemandTrackerController {
-	@Autowired
-	private DemandService trackerService;
+    @Autowired
+    private DemandService trackerService;
 
-	@Autowired
-	private SupplyService supplyService;
+    @Autowired
+    private SupplyService supplyService;
 
-	@GetMapping("/tracker")
-	public ResponseEntity<List<DemandDetail>> getAllProjects() {
-		try {
-			List<DemandDetail> projects = trackerService.getAllProjects();
-			return ResponseEntity.ok().body(projects);
-		} catch (ResourceNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
+    @Autowired
+    private UserService userService;
 
-	@GetMapping("/tracker/{id}")
-	public ResponseEntity<DemandDetail> getProject(@PathVariable("id") long id) {
-		try {
-			List<Object> suggestedSupply = new ArrayList<Object>();
+    @GetMapping("/user/{emailId}/demand")
+    public ResponseEntity<List<DemandDetail>> getDemands(@PathVariable(name = "emailId", required = true) String emailId,
+                                                         @RequestParam(name = "user") String userCategory) {
+        try {
+            if (StringUtils.isEmpty(userCategory) || userCategory.equalsIgnoreCase("TA")) {
+                return ResponseEntity.ok().body(trackerService.getAllDemands());
+            } else {
+                return ResponseEntity.ok().body(trackerService.getDemandsByUser(emailId));
+            }
 
-			DemandDetail project = trackerService.getProjectById(id);
-			String skill = project.getSkill();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-			List<String> elephantList = Arrays.asList(skill.split(","));
-			List<Object[]> results = supplyService.getSupplyDetails();
+    @GetMapping("/user/{emailId}/demand/{id}")
+    public ResponseEntity<DemandDetail> getDemandById(@PathVariable(name="emailId", required = true) String emailId,
+                                                  @PathVariable("id") long demandId) {
+        try {
+            DemandDetail demandDetail = trackerService.getDemandById(emailId, demandId);
+            return ResponseEntity.ok().body(demandDetail);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-			results.stream().forEach((record) -> {
-				Map<Object, Object> occurenceMap = new HashMap<Object, Object>();
-				BigInteger sid = (BigInteger) record[0];
-				String skillTest = (String) record[1];
-				List<String> skillList = Arrays.asList(skillTest.split(","));
-				String supplyName = (String) record[2];
-				String pattern = elephantList.stream().map(Pattern::quote)
-						.collect(Collectors.joining("|", ".*(", ").*"));
-				Pattern re = Pattern.compile(pattern);
-				if (skillList.stream().anyMatch(t -> re.matcher(t).matches())) {
-					occurenceMap.put("supplyId", sid);
-					occurenceMap.put("skillTest", skillTest);
+    @GetMapping("/user/{emailId}/demand/{id}/supply")
+    public ResponseEntity<DemandDetail> getSupplyForDemand(@PathVariable(name="emailId", required = true) String emailId, @PathVariable("id") long demandId) {
+        try {
+            List<Object> suggestedSupply = new ArrayList<Object>();
+            DemandDetail demandDetail = trackerService.getDemandById(emailId, demandId);
+            String skill = demandDetail.getSkill();
+            List<String> elephantList = Arrays.asList(skill.split(","));
+            List<SupplyDetail> supplyDetails = supplyService.getAllSupply();
+            supplyDetails.stream().forEach((supplyDetail) -> {
+                String skillTest = supplyDetail.getSkill();
+                List<String> skillList = Arrays.asList(skillTest.split(","));
+                String pattern = elephantList.stream().map(Pattern::quote)
+                        .collect(Collectors.joining("|", ".*(", ").*"));
+                Pattern re = Pattern.compile(pattern);
+                if (skillList.stream().anyMatch(t -> re.matcher(t).matches())) {
+                    suggestedSupply.add(supplyDetail);
+                }
+            });
+            demandDetail.setSuggestedSupply(suggestedSupply);
+            return ResponseEntity.ok().body(demandDetail);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-					occurenceMap.put("supplyName", supplyName);
-					suggestedSupply.add(occurenceMap);
-				}
-			});
+    @PostMapping("/user/{emailId}/demand")
+    public ResponseEntity<DemandDetail> createDemand(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody DemandDetail newDemand) {
+        try {
+            DemandDetail demandDetail = trackerService.createDemand(emailId, newDemand);
+            return ResponseEntity.status(201).body(demandDetail);
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
+    }
 
-			project.setSuggestedSupply(suggestedSupply);
+    @PutMapping("/user/{emailId}/demand")
+    public ResponseEntity<Void> updateDemand(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody DemandDetail existingDemand) {
+        try {
+            trackerService.updateDemand(emailId, existingDemand);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-			return ResponseEntity.ok().body(project);
-		} catch (ResourceNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
+    @PutMapping("/user/{emailId}/archive")
+    public ResponseEntity<Void> archiveDemand(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody List<Long> demandIds) {
+        try {
+            trackerService.archiveDemand(demandIds);
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
-	@PostMapping("/tracker")
-	public ResponseEntity<DemandDetail> addProject(@RequestBody DemandDetail newproject) {
-		DemandDetail projTrakr = trackerService.addProject(newproject);
-		try {
-			return ResponseEntity.status(201).body(projTrakr);
-		} catch (Exception e) {
-			return ResponseEntity.status(404).build();
-		}
-	}
-
-	@PutMapping("/tracker/{id}")
-	public ResponseEntity<Void> updateProject(@PathVariable int id, @RequestBody DemandDetail existingProject) {
-		try {
-			trackerService.updateProject(existingProject);
-			return ResponseEntity.noContent().build();
-		} catch (ResourceNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-
-	@DeleteMapping("/tracker/{id}")
-	public ResponseEntity<Void> deleteProject(@PathVariable long id) {
-		try {
-			trackerService.deleteProject(id);
-			return ResponseEntity.noContent().build();
-		} catch (ResourceNotFoundException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
 }

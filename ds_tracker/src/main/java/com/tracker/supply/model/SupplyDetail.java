@@ -1,16 +1,13 @@
 package com.tracker.supply.model;
 
+import com.tracker.user.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.sql.Date;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -31,17 +28,11 @@ public class SupplyDetail implements Serializable {
 	@Column(name = "skill")
 	private String skill;
 
-	@Column(name = "demandId")
-	private String demandId;
-
 	@Column(name = "premiumRate")
 	private String premiumRate;
 
 	@Column(name = "recruiterName")
 	private String recruiterName;
-
-	@Column(name = "submittedBy")
-	private String submittedBy;
 
 	@Column(name = "experience")
 	private String experienceYear;
@@ -61,9 +52,6 @@ public class SupplyDetail implements Serializable {
 	@Column(name = "live")
 	private String live;
 
-	@Column(name = "modifiedDate")
-	private String modifiedDate;
-
 	@Column(name = "appleInterviewDate")
 	private String appleInterviewDate;
 
@@ -81,5 +69,21 @@ public class SupplyDetail implements Serializable {
 
 	@Column(name = "description")
 	private String description;
+
+	@Column(name="isArchived")
+	private boolean isArchived;
+
+	@Column(name = "createdDate")
+	private Date createdDate;
+
+	@Column(name = "modifiedDate")
+	private Date modifiedDate;
+
+	@ManyToOne
+	private User createdBy;
+
+	@ManyToOne
+	@JoinColumn(name = "emailId")
+	private User submittedBy;
 	
 }

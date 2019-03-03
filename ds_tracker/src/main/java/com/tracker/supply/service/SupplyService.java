@@ -10,15 +10,21 @@ public interface SupplyService {
 
 	public List<SupplyDetail> getAllSupply();
 
-	public SupplyDetail getSupplyById(long id);
+	public List<SupplyDetail> getAllSupplyByUser(String emailId);
+
+	public SupplyDetail getSupplyById(String emailId, long supplyId);
 
 	public List<Object[]> getSupplyDetails();
 
-	public SupplyDetail addSupply(SupplyDetail supplyDetail);
+	public SupplyDetail addSupply(String emailId, SupplyDetail supplyDetail);
 
-	public void updateSupply(SupplyDetail supplyDetail);
+	public void updateSupply(String emailId, SupplyDetail supplyDetail);
 
-	public void deleteSupply(long id);
+	public List<SupplyDetail> getAllArchiveSupply();
+
+	public void archiveSupply(String emailId, List<Long> supplyIds);
+
+	public void archiveSupplyById(String emailId, long supplyId);
 
 	public String storeFile(MultipartFile file);
 

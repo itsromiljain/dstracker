@@ -1,10 +1,12 @@
 package com.tracker.demand.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import com.tracker.demand.model.DemandDetail;
+import com.tracker.user.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,28 +22,49 @@ public class DemandServiceImpl implements DemandService {
 	private DemandRepo demandRepo;
 
 	@Override
-	public DemandDetail getProjectById(long id) {
-		return demandRepo.findById(id).get();
+	public DemandDetail getDemandById(String emailId, long demandId) {
+		Optional<DemandDetail> optDemandDetail = demandRepo.findById(emailId, demandId);
+		return optDemandDetail.isPresent()? optDemandDetail.get():null;
 	}
 
 	@Override
-	public List<DemandDetail> getAllProjects() {
+	public List<DemandDetail> getAllDemands() {
 		return demandRepo.findAll();
 	}
 
 	@Override
-	public DemandDetail addProject(DemandDetail tracker) {
-		return demandRepo.save(tracker);
+	public List<DemandDetail> getDemandsByUser(String emailId) {
+		return demandRepo.findById(emailId);
 	}
 
 	@Override
-	public void updateProject(DemandDetail tracker) {
-		demandRepo.save(tracker);
+	public List<DemandDetail> getAllArchivedDemands() {
+		return demandRepo.findAllArchivedDemands();
 	}
 
 	@Override
-	public void deleteProject(long id) {
-		demandRepo.deleteById(id);
+	public DemandDetail createDemand(String emailId, DemandDetail demandDetail) {
+		User user = new User();
+		user.setEmailId(emailId);
+		demandDetail.setSubmittedBy(user);
+		demandDetail.setCreatedBy(user);
+		// Make sure isArchived set to 0 while creating demand
+		return demandRepo.save(demandDetail);
+	}
+
+	@Override
+	public void updateDemand(String emailId, DemandDetail demandDetail) {
+		User user = new User();
+		user.setEmailId(emailId);
+		demandDetail.setSubmittedBy(user);
+		demandDetail.setCreatedBy(user);
+		demandRepo.save(demandDetail);
+	}
+
+	@Override
+	public void archiveDemand(List<Long> demandIds) {
+		// set isArchived as 1
+		demandRepo.archiveDemand(demandIds);
 	}
 
 }

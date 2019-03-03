@@ -1,25 +1,23 @@
 package com.tracker.supply.controller;
 
 import com.tracker.admin.service.SkillService;
+import com.tracker.common.FileStorageException;
 import com.tracker.common.ResourceNotFoundException;
 import com.tracker.supply.model.SupplyDetail;
 import com.tracker.supply.model.UploadFileResponse;
-import com.tracker.common.FileStorageException;
 import com.tracker.supply.service.SupplyService;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -31,61 +29,80 @@ public class SupplyTrackerController {
 	@Autowired
 	private SkillService skillService;
 
-	@GetMapping("/supply")
-	public ResponseEntity<List<SupplyDetail>> getAllSupply() {
-		List<SupplyDetail> projects = new LinkedList<SupplyDetail>();
+	@GetMapping("/user/{emailId}/supply")
+	public ResponseEntity<List<SupplyDetail>> getSupply(@PathVariable(name = "emailId", required = true) String emailId,
+														@RequestParam(name = "user") String userCategory) {
 		try {
-			
-			projects = supplyService.getAllSupply();
-			return ResponseEntity.ok().body(projects);
+			if (StringUtils.isEmpty(userCategory) || userCategory.equalsIgnoreCase("TA"))
+				return ResponseEntity.ok().body(supplyService.getAllSupply());
+			else
+				return ResponseEntity.ok().body(supplyService.getAllSupplyByUser(emailId));
+
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	@GetMapping("/supply/{id}")
-	public ResponseEntity<List<SupplyDetail>> getSupplyById(@PathVariable("id") long id) {
+	@GetMapping("/user/{emailId}/supply/{id}")
+	public ResponseEntity<SupplyDetail> getSupplyById(@PathVariable(name = "emailId", required = true) String emailId,
+													  @PathVariable("id") long supplyId) {
 		try {
-			List<SupplyDetail> projects = supplyService.getAllSupply();
-			return ResponseEntity.ok().body(projects);
+			return ResponseEntity.ok().body(supplyService.getSupplyById(emailId, supplyId));
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	@PostMapping("/supply")
-	public ResponseEntity<SupplyDetail> addSupply(@RequestBody SupplyDetail newSupplyDtls) {
-
-		SupplyDetail supplyDtls = supplyService.addSupply(newSupplyDtls);
+	@PostMapping("/user/{emailId}/supply")
+	public ResponseEntity<SupplyDetail> addSupply(@PathVariable(name = "emailId", required = true) String emailId,
+												  @RequestBody SupplyDetail newSupplyDtl) {
 		try {
-			return ResponseEntity.status(201).body(supplyDtls);
+			return ResponseEntity.ok().body(supplyService.addSupply(emailId, newSupplyDtl));
 		} catch (Exception e) {
-			return ResponseEntity.status(404).build();
+			return ResponseEntity.notFound().build();
 		}
 	}
 
-	@PutMapping("/supply/{id}")
-	public ResponseEntity<Void> updateSupply(@PathVariable long id, @RequestBody SupplyDetail exstsupplyDtls) {
+	@PutMapping("/user/{emailId}/supply")
+	public ResponseEntity<Void> updateSupply(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody SupplyDetail existingSupplyDtl) {
 		try {
-			supplyService.updateSupply(exstsupplyDtls);
-			return ResponseEntity.noContent().build();
+			supplyService.updateSupply(emailId, existingSupplyDtl);
+			return ResponseEntity.ok().build();
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
-	@DeleteMapping("/supply/{id}")
-	public ResponseEntity<Void> deleteSupply(@PathVariable long id) {
+	@GetMapping("/user/{emailId}/archive/supply")
+	public ResponseEntity<List<SupplyDetail>> getAllArchiveSupply() {
 		try {
-			supplyService.deleteSupply(id);
-			return ResponseEntity.noContent().build();
+			return ResponseEntity.ok().body(supplyService.getAllArchiveSupply());
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
+	@PutMapping("/user/{emailId}/archive/supply")
+	public ResponseEntity<Void> archiveSupply(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody List<Long> supplyIds) {
+		try {
+			supplyService.archiveSupply(emailId, supplyIds);
+			return ResponseEntity.ok().build();
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+
+	@PutMapping("/user/{emailId}/archive/supply/{id}")
+	public ResponseEntity<Void> archiveSupplyById(@PathVariable(name = "emailId", required = true) String emailId, @PathVariable(name="id") long supplyId) {
+		try {
+			supplyService.archiveSupplyById(emailId, supplyId);
+			return ResponseEntity.ok().build();
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
-	@PostMapping("/uploadFile")
+	@PostMapping("/user/{emailId}/uploadFile")
 	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
 		String fileName = supplyService.storeFile(file);
 		// Check if the file's name contains invalid characters

@@ -6,13 +6,17 @@ import com.tracker.demand.model.DemandDetail;
 
 public interface DemandService {
 
-	public DemandDetail getProjectById(long id);
+	public DemandDetail getDemandById(String emailId, long demandId);
 	
-	public List<DemandDetail> getAllProjects();
+	public List<DemandDetail> getAllDemands();
 
-	public DemandDetail addProject(DemandDetail s);
+	public List<DemandDetail> getDemandsByUser(String emailId);
 
-	public void updateProject(DemandDetail s);
+	public List<DemandDetail> getAllArchivedDemands();
 
-	public void deleteProject(long id);
+	public DemandDetail createDemand(String emailId, DemandDetail demandDetail);
+
+	public void updateDemand(String emailId, DemandDetail demandDetail);
+
+	public void archiveDemand(List<Long> demandIds);
 }

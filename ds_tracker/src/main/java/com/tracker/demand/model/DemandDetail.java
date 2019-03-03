@@ -1,20 +1,19 @@
 package com.tracker.demand.model;
 
+import com.tracker.user.model.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import net.bytebuddy.implementation.bind.annotation.Default;
 
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.sql.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 @Getter
 @Setter
 @ToString
@@ -53,8 +52,6 @@ public class DemandDetail implements Serializable {
 	private String suggestedPanel;
 	@Column(name = "status")
 	private String status;
-	@Column(name = "closureDate")
-	private String closureDate;
 	@Column(name = "appleManager")
 	private String appleManager;
 	@Column(name = "recruiter")
@@ -63,6 +60,19 @@ public class DemandDetail implements Serializable {
 	private String sf;
 	@Column(name = "skill")
 	private String skill;
+	@Column(name="isArchived")
+	private boolean isArchived;
+	@Column(name = "closureDate")
+	private String closureDate;
+	@Column(name = "createdDate")
+	private Date createdDate;
+	@Column(name = "modifiedDate")
+	private Date modifiedDate;
+	@ManyToOne
+	private User createdBy;
+	@ManyToOne
+	@JoinColumn(name = "emailId")
+	private User submittedBy;
 	@Column(name = "suggestedSupply")
 	@ElementCollection(targetClass=Integer.class)
 	private List<Object> suggestedSupply;
