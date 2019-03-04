@@ -1,9 +1,13 @@
 package com.tracker.auth;
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.nio.file.PathMatcher;
 
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
@@ -13,6 +17,12 @@ public class AppConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(requestInterceptor);
+		registry.addInterceptor(requestInterceptor).excludePathPatterns( new String[] {"/login", "/logout","/register","/admin/**"});
+	}
+
+	@Bean
+	public StrongPasswordEncryptor strongEncryptor(){
+		StrongPasswordEncryptor encryptor = new StrongPasswordEncryptor();
+		return encryptor;
 	}
 }

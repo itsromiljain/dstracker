@@ -31,9 +31,9 @@ public class DemandTrackerController {
 
     @GetMapping("/user/{emailId}/demand")
     public ResponseEntity<List<DemandDetail>> getDemands(@PathVariable(name = "emailId", required = true) String emailId,
-                                                         @RequestParam(name = "user") String userCategory) {
+                                                         @RequestParam(name = "role") String role) {
         try {
-            if (StringUtils.isEmpty(userCategory) || userCategory.equalsIgnoreCase("TA")) {
+            if (StringUtils.isEmpty(role) || role.equalsIgnoreCase("TA")) {
                 return ResponseEntity.ok().body(trackerService.getAllDemands());
             } else {
                 return ResponseEntity.ok().body(trackerService.getDemandsByUser(emailId));

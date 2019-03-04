@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter
@@ -21,13 +18,18 @@ public class User implements Serializable {
     @Column(name = "emailId")
     private String emailId;
 
+    @Transient
+    private String password;
+
     @Column(name = "hashCode")
-    private String hashCode;
+    private String encryptedPassword;
 
-    @Column(name = "salt")
-    private String salt;
+    @Column(name = "token")
+    private String token;
 
-    @Column(name = "userCategory")
-    private String userCategory;
+    @Column(name = "role")
+    private String role;
 
+    @Column(name = "active")
+    private Boolean active = true;
 }

@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/admin")
 public class AdminController {
 
 	@Autowired

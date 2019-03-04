@@ -31,9 +31,9 @@ public class SupplyTrackerController {
 
 	@GetMapping("/user/{emailId}/supply")
 	public ResponseEntity<List<SupplyDetail>> getSupply(@PathVariable(name = "emailId", required = true) String emailId,
-														@RequestParam(name = "user") String userCategory) {
+														@RequestParam(name = "role") String role) {
 		try {
-			if (StringUtils.isEmpty(userCategory) || userCategory.equalsIgnoreCase("TA"))
+			if (StringUtils.isEmpty(role) || role.equalsIgnoreCase("TA"))
 				return ResponseEntity.ok().body(supplyService.getAllSupply());
 			else
 				return ResponseEntity.ok().body(supplyService.getAllSupplyByUser(emailId));
