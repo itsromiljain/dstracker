@@ -63,7 +63,7 @@ dependencies {
     compile("org.projectlombok:lombok")
 
     //DevTools
-    compile("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // Health Check
     compile("org.springframework.boot:spring-boot-starter-actuator")
