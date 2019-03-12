@@ -15,8 +15,9 @@ public class AppConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(requestInterceptor).excludePathPatterns(
-				new String[] {"/login", "/logout","/register","/admin/**","/webjars/**", "/swagger-ui.html/**", "/swagger-resources/**", "/csrf", "/actuator/**", "/error", "/v2/api-docs"});
+		registry.addInterceptor(requestInterceptor).addPathPatterns(new String[] {"/user/**"});
+		/*registry.addInterceptor(requestInterceptor).excludePathPatterns(
+				new String[] {"/login", "/logout","/register","/admin/**","/webjars/**", "/swagger-ui.html/**", "/swagger-resources/**", "/csrf", "/actuator/**", "/error", "/v2/api-docs"});*/
 	}
 
 	@Bean
