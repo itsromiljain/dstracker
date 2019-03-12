@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.nio.file.PathMatcher;
-
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
 
@@ -17,7 +15,8 @@ public class AppConfig implements WebMvcConfigurer {
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(requestInterceptor).excludePathPatterns( new String[] {"/login", "/logout","/register","/admin/**"});
+		registry.addInterceptor(requestInterceptor).excludePathPatterns(
+				new String[] {"/login", "/logout","/register","/admin/**","/webjars/**", "/swagger-ui.html/**", "/swagger-resources/**", "/csrf", "/actuator/**", "/error", "/v2/api-docs"});
 	}
 
 	@Bean
