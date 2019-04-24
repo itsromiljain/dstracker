@@ -2,7 +2,7 @@ package com.tracker.demand.repository;
 
 import java.util.List;
 
-import com.tracker.demand.model.DemandDetail;
+import com.tracker.entity.DemandDetail;
 
 
 public interface ExtendedTrackerRepo{

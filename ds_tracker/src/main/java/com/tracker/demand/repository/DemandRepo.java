@@ -2,7 +2,7 @@ package com.tracker.demand.repository;
 
 
 
-import com.tracker.demand.model.DemandDetail;
+import com.tracker.entity.DemandDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +17,7 @@ public interface DemandRepo extends JpaRepository<DemandDetail, Long> {
 
     // Fetch only non archived/active demand
     @Query("SELECT dd FROM DemandDetail dd WHERE dd.demandId=:demandId AND dd.submittedBy.emailId=:emailId AND dd.isArchived=0")
-    public Optional<DemandDetail> findById(@Param("emailId") String emailId, @Param("demandId") long demandId);
+    public Optional<DemandDetail> findById(@Param("emailId") String emailId, @Param("demandId") String demandId);
 
     @Query("SELECT dd FROM DemandDetail dd WHERE dd.submittedBy.emailId=:emailId AND dd.isArchived=0")
     public List<DemandDetail> findById(@Param("emailId") String emailId);
@@ -34,7 +34,7 @@ public interface DemandRepo extends JpaRepository<DemandDetail, Long> {
 
     // Update the demands as archived set isArchived=1
     @Query("UPDATE DemandDetail dd SET dd.isArchived=1 where dd.demandId IN (:demandIds)")
-    public void archiveDemand(@Param("demandIds") List<Long> demandIds);
+    public void archiveDemand(@Param("demandIds") List<String> demandIds);
 
 }
 

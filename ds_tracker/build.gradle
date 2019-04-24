@@ -81,6 +81,10 @@ dependencies {
     // PDF Reader
     compile("org.apache.pdfbox:pdfbox:2.0.13")
 
+    // Excel Reader
+    compile "org.apache.poi:poi:3.17"
+    compile "org.apache.poi:poi-ooxml:3.17"
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

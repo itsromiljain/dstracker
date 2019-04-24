@@ -1,22 +1,22 @@
 package com.tracker.demand.service;
 
-import java.util.List;
+import com.tracker.demand.pojo.DemandTO;
 
-import com.tracker.demand.model.DemandDetail;
+import java.util.List;
 
 public interface DemandService {
 
-	public DemandDetail getDemandById(String emailId, long demandId);
+	public DemandTO getDemandById(String emailId, String demandId);
 	
-	public List<DemandDetail> getAllDemands();
+	public List<DemandTO> getAllDemands();
 
-	public List<DemandDetail> getDemandsByUser(String emailId);
+	public List<DemandTO> getDemandsByUser(String emailId);
 
-	public List<DemandDetail> getAllArchivedDemands();
+	public List<DemandTO> getAllArchivedDemands();
 
-	public DemandDetail createDemand(String emailId, DemandDetail demandDetail);
+	public DemandTO createDemand(String emailId, DemandTO demandTO);
 
-	public void updateDemand(String emailId, DemandDetail demandDetail);
+	public void updateDemand(String emailId, DemandTO demandTO);
 
-	public void archiveDemand(List<Long> demandIds);
+	public void archiveDemand(List<String> demandIds);
 }

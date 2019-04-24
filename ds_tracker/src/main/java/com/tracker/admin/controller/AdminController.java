@@ -6,6 +6,7 @@ import com.tracker.common.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +39,10 @@ public class AdminController {
 	SubmittedByService submittedByService;
 	@Autowired
 	PremiumRateService premiumRateService;
+
+	//Import Service
+	@Autowired
+	ImportService importService;
 
 	// add new DemandType
 	@PostMapping("/demandType")
@@ -263,10 +268,10 @@ public class AdminController {
 	// get All SubmittedBy
 	@GetMapping("/submittedBy")
 	public ResponseEntity<List<SubmittedBy>> getAllSubmittedBy() {
-		List<SubmittedBy> SubmittedBy = new LinkedList<SubmittedBy>();
+		List<SubmittedBy> submittedBy = new LinkedList<SubmittedBy>();
 		try {
-			SubmittedBy = submittedByService.getAllSubmittedBy();
-			return ResponseEntity.ok().body(SubmittedBy);
+			submittedBy = submittedByService.getAllSubmittedBy();
+			return ResponseEntity.ok().body(submittedBy);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -282,13 +287,48 @@ public class AdminController {
 	// get All PremiumRate
 	@GetMapping("/premiumRate")
 	public ResponseEntity<List<PremiumRate>> getAllPremiumRate() {
-		List<PremiumRate> PremiumRate = new LinkedList<PremiumRate>();
+		List<PremiumRate> premiumRate = new LinkedList<PremiumRate>();
 		try {
-			PremiumRate = premiumRateService.getAllPremiumRate();
-			return ResponseEntity.ok().body(PremiumRate);
+			premiumRate = premiumRateService.getAllPremiumRate();
+			return ResponseEntity.ok().body(premiumRate);
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
 		}
 
+	}
+
+	// Import Demands from Excel
+	@PostMapping("/import/demand")
+	public ResponseEntity<Object> importDemand(@RequestParam("file") MultipartFile file) {
+		try {
+			importService.importDemandFile(file);
+			return ResponseEntity.ok().build();
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	// Import Supply from Excel
+	@PostMapping("/import/supply")
+	public ResponseEntity<Object> importSupply(@RequestParam("file") MultipartFile file) {
+		try {
+			importService.importSupplyFile(file);
+			return ResponseEntity.ok().build();
+		} catch (ResourceNotFoundException e) {
+			return ResponseEntity.notFound().build();
+		}
+
+	}
+
+	private void validateFile(MultipartFile file) {
+		if(!file.isEmpty()){
+			String fileName = file.getOriginalFilename();
+			if(!fileName.endsWith(".xlsx")){
+				// file is not xlsx type
+			}
+		}else {
+			// Empty file
+		}
 	}
 }

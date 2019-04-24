@@ -3,8 +3,8 @@ package com.tracker.supply.controller;
 import com.tracker.admin.service.SkillService;
 import com.tracker.common.FileStorageException;
 import com.tracker.common.ResourceNotFoundException;
-import com.tracker.supply.model.SupplyDetail;
-import com.tracker.supply.model.UploadFileResponse;
+import com.tracker.supply.pojo.SupplyTO;
+import com.tracker.supply.pojo.UploadFileResponse;
 import com.tracker.supply.service.SupplyService;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -30,8 +30,8 @@ public class SupplyTrackerController {
 	private SkillService skillService;
 
 	@GetMapping("/user/{emailId}/supply")
-	public ResponseEntity<List<SupplyDetail>> getSupply(@PathVariable(name = "emailId", required = true) String emailId,
-														@RequestParam(name = "role") String role) {
+	public ResponseEntity<List<SupplyTO>> getSupply(@PathVariable(name = "emailId", required = true) String emailId,
+                                                    @RequestParam(name = "role") String role) {
 		try {
 			if (StringUtils.isEmpty(role) || role.equalsIgnoreCase("TA"))
 				return ResponseEntity.ok().body(supplyService.getAllSupply());
@@ -44,7 +44,7 @@ public class SupplyTrackerController {
 	}
 
 	@GetMapping("/user/{emailId}/supply/{id}")
-	public ResponseEntity<SupplyDetail> getSupplyById(@PathVariable(name = "emailId", required = true) String emailId,
+	public ResponseEntity<SupplyTO> getSupplyById(@PathVariable(name = "emailId", required = true) String emailId,
 													  @PathVariable("id") long supplyId) {
 		try {
 			return ResponseEntity.ok().body(supplyService.getSupplyById(emailId, supplyId));
@@ -54,19 +54,19 @@ public class SupplyTrackerController {
 	}
 
 	@PostMapping("/user/{emailId}/supply")
-	public ResponseEntity<SupplyDetail> addSupply(@PathVariable(name = "emailId", required = true) String emailId,
-												  @RequestBody SupplyDetail newSupplyDtl) {
+	public ResponseEntity<SupplyTO> addSupply(@PathVariable(name = "emailId", required = true) String emailId,
+												  @RequestBody SupplyTO newSupply) {
 		try {
-			return ResponseEntity.ok().body(supplyService.addSupply(emailId, newSupplyDtl));
+			return ResponseEntity.ok().body(supplyService.addSupply(emailId, newSupply));
 		} catch (Exception e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
 	@PutMapping("/user/{emailId}/supply")
-	public ResponseEntity<Void> updateSupply(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody SupplyDetail existingSupplyDtl) {
+	public ResponseEntity<Void> updateSupply(@PathVariable(name = "emailId", required = true) String emailId, @RequestBody SupplyTO existingSupply) {
 		try {
-			supplyService.updateSupply(emailId, existingSupplyDtl);
+			supplyService.updateSupply(emailId, existingSupply);
 			return ResponseEntity.ok().build();
 		} catch (ResourceNotFoundException e) {
 			return ResponseEntity.notFound().build();
@@ -74,7 +74,7 @@ public class SupplyTrackerController {
 	}
 
 	@GetMapping("/user/{emailId}/archive/supply")
-	public ResponseEntity<List<SupplyDetail>> getAllArchiveSupply() {
+	public ResponseEntity<List<SupplyTO>> getAllArchiveSupply() {
 		try {
 			return ResponseEntity.ok().body(supplyService.getAllArchiveSupply());
 		} catch (ResourceNotFoundException e) {

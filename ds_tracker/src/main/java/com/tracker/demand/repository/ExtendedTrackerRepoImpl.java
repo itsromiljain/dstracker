@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.tracker.demand.model.DemandDetail;
+import com.tracker.entity.DemandDetail;
 import org.springframework.stereotype.Repository;
 
 @Repository

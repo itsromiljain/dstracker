@@ -1,4 +1,4 @@
-package com.tracker.supply.model;
+package com.tracker.supply.pojo;
 
 public class ResumeUpload {
 	private String fileName;
