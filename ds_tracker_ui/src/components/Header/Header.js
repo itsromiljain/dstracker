@@ -7,7 +7,7 @@ import './Header.scss';
 const Header = (props) => (
   <header className="header">
     <div className="header_logo">
-      <Link to="/">LTI PROJECT TRACKER</Link>
+      <Link to="/">PROJECT TRACKER</Link>
       { console.log(props) }
     </div>
     <div className="nav"> Welcome to {props.userName}</div>

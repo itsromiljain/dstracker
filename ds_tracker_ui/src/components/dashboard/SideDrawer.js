@@ -1,6 +1,6 @@
 import React from 'react';
 import './SideDrawer.css';
-import ltilogo from '../../../assets/lti.png';
+import logo from '../../../assets/dummy_logo.png';
 import userimg from '../../../assets/user.jpeg';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -139,7 +139,7 @@ class SideDrawer extends React.Component {
             </Typography>
             <div className="gapping"/>
             <Typography variant="h6" color="inherit" noWrap className="welcome">
-              Welcome Satyam
+              Welcome Romil
             </Typography>
           </Toolbar>
         </AppBar>
@@ -159,7 +159,7 @@ class SideDrawer extends React.Component {
         >
           <div className={classes.toolbar}>
             <div>
-              <img className="ltilogo" src={ltilogo} alt="LTI"/>
+              <img className="logo" src={logo} alt="logo"/>
             </div>
             <div className="gapping"/>
             <IconButton onClick={this.handleDrawerClose}>
@@ -178,7 +178,7 @@ class SideDrawer extends React.Component {
                 <ListItemIcon>
                   <Avatar alt="Remy Sharp" src={userimg} className={classes.avatar} />
                 </ListItemIcon>
-                <ListItemText primary="Satyam Bajpai" secondary="Account Manager" />
+                <ListItemText primary="Romil Jain" secondary="Account Manager" />
               </ListItem>
               <Divider />
               <Link to={"/landingPage"}> <ListItem button>
