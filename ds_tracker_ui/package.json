@@ -33,7 +33,7 @@
     "mongoose": "^5.4.15",
     "mongoose-sequence": "^4.0.1",
     "mui-datatables": "^2.0.0-beta-50",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-datepicker": "^1.5.0",
